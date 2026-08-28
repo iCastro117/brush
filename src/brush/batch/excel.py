@@ -48,7 +48,7 @@ COLUMNS = {
     "comments": ["comments", "comentarios", "notes", "notas"],
 }
 
-HEADERS = ["ID", "IMAGE/FIGMA", "CODE", "CSS", "RESPUESTA BRUSH",
+HEADERS = ["ID", "IMAGE/FIGMA", "CODE", "CSS", "BRUSH RESPONSE",
            "BLOCKERS", "MAJORS", "MINORS", "INFO",
            "CONFORMANCE", "EXPECTED", "POINTS", "COMMENTS"]
 

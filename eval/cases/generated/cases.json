@@ -5,14 +5,14 @@
     {
       "case_id": "case_00",
       "label": "clean control \u2014 a correct detector reports nothing here",
-      "css_path": "eval/cases/generated\\case_00.css",
+      "css_path": "eval/cases/generated/case_00.css",
       "mutations": [],
       "ground_truth": []
     },
     {
       "case_id": "case_01",
       "label": "everything at once \u2014 the hard case",
-      "css_path": "eval/cases/generated\\case_01.css",
+      "css_path": "eval/cases/generated/case_01.css",
       "mutations": [
         {
           "mutation_id": "M01",
@@ -458,7 +458,7 @@
     {
       "case_id": "case_02",
       "label": "3 defects: letter_spacing, space_offgrid, type_size",
-      "css_path": "eval/cases/generated\\case_02.css",
+      "css_path": "eval/cases/generated/case_02.css",
       "mutations": [
         {
           "mutation_id": "M02",
@@ -562,7 +562,7 @@
     {
       "case_id": "case_03",
       "label": "4 defects: family_fallback, leading_crush, radius_drift, space_subpixel",
-      "css_path": "eval/cases/generated\\case_03.css",
+      "css_path": "eval/cases/generated/case_03.css",
       "mutations": [
         {
           "mutation_id": "M16",
@@ -679,7 +679,7 @@
     {
       "case_id": "case_04",
       "label": "2 defects: border_contrast, color_contrast",
-      "css_path": "eval/cases/generated\\case_04.css",
+      "css_path": "eval/cases/generated/case_04.css",
       "mutations": [
         {
           "mutation_id": "M05",
@@ -730,7 +730,7 @@
     {
       "case_id": "case_05",
       "label": "4 defects: color_semantic_swap, proximity_inversion, space_offgrid, type_size",
-      "css_path": "eval/cases/generated\\case_05.css",
+      "css_path": "eval/cases/generated/case_05.css",
       "mutations": [
         {
           "mutation_id": "M02",
@@ -863,7 +863,7 @@
     {
       "case_id": "case_06",
       "label": "3 defects: color_semantic_swap, target_below_min, weight_flatten",
-      "css_path": "eval/cases/generated\\case_06.css",
+      "css_path": "eval/cases/generated/case_06.css",
       "mutations": [
         {
           "mutation_id": "M13",
@@ -943,7 +943,7 @@
     {
       "case_id": "case_07",
       "label": "4 defects: border_contrast, letter_spacing, space_offgrid, space_subpixel",
-      "css_path": "eval/cases/generated\\case_07.css",
+      "css_path": "eval/cases/generated/case_07.css",
       "mutations": [
         {
           "mutation_id": "M02",
@@ -1092,7 +1092,7 @@
     {
       "case_id": "case_08",
       "label": "4 defects: color_drift, focus_removed, proximity_collapse, target_shrink",
-      "css_path": "eval/cases/generated\\case_08.css",
+      "css_path": "eval/cases/generated/case_08.css",
       "mutations": [
         {
           "mutation_id": "M11",
@@ -1201,7 +1201,7 @@
     {
       "case_id": "case_09",
       "label": "3 defects: proximity_inversion, space_nudge, weight_flatten",
-      "css_path": "eval/cases/generated\\case_09.css",
+      "css_path": "eval/cases/generated/case_09.css",
       "mutations": [
         {
           "mutation_id": "M07",
@@ -1289,7 +1289,7 @@
     {
       "case_id": "case_10",
       "label": "4 defects: color_semantic_swap, space_subpixel, type_size, weight_flatten",
-      "css_path": "eval/cases/generated\\case_10.css",
+      "css_path": "eval/cases/generated/case_10.css",
       "mutations": [
         {
           "mutation_id": "M06",
@@ -1406,7 +1406,7 @@
     {
       "case_id": "case_11",
       "label": "3 defects: proximity_inversion, radius_drift, space_subpixel",
-      "css_path": "eval/cases/generated\\case_11.css",
+      "css_path": "eval/cases/generated/case_11.css",
       "mutations": [
         {
           "mutation_id": "M10",

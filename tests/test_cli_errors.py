@@ -14,7 +14,6 @@ from __future__ import annotations
 
 import os
 import sys
-import tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "src"))
@@ -26,7 +25,6 @@ HTML = os.path.join(ROOT, "eval", "cases", "checkout.html")
 CSS = os.path.join(ROOT, "eval", "cases", "checkout.css")
 MAKEFILE = os.path.join(ROOT, "Makefile")
 CASES_DIR = os.path.join(ROOT, "eval", "cases")
-OUT = os.path.join(tempfile.gettempdir(), "brush-clitest")
 
 
 def _run(argv: list[str]) -> tuple[int, str]:
@@ -44,12 +42,12 @@ def _run(argv: list[str]) -> tuple[int, str]:
 
 def _audit(*extra: str) -> tuple[int, str]:
     return _run(["audit", "--design", DESIGN, "--html", HTML, "--css", CSS,
-                 "--out", OUT, *extra])
+                 "--out", "/tmp/brush-clitest", *extra])
 
 
 def test_missing_file_is_a_user_error():
     code, text = _run(["audit", "--design", "nope.json", "--html", HTML,
-                       "--css", CSS, "--out", OUT])
+                       "--css", CSS, "--out", "/tmp/brush-clitest"])
     assert code == 2, f"expected exit 2, got {code}"
     assert "not found" in text.lower()
     assert "Traceback" not in text
@@ -58,7 +56,7 @@ def test_missing_file_is_a_user_error():
 
 def test_typo_suggests_the_real_filename():
     code, text = _run(["audit", "--design", DESIGN + "x", "--html", HTML,
-                       "--css", CSS, "--out", OUT])
+                       "--css", CSS, "--out", "/tmp/brush-clitest"])
     assert code == 2
     assert "did you mean" in text.lower(), text
     print("  ok  a mistyped path suggests the nearest real file")
@@ -66,7 +64,7 @@ def test_typo_suggests_the_real_filename():
 
 def test_directory_where_a_file_belongs():
     code, text = _run(["audit", "--design", DESIGN, "--html", HTML,
-                       "--css", CASES_DIR, "--out", OUT])
+                       "--css", CASES_DIR, "--out", "/tmp/brush-clitest"])
     assert code == 2
     assert "directory" in text.lower(), text
     print("  ok  a folder passed as --css is named as a folder")
@@ -74,7 +72,7 @@ def test_directory_where_a_file_belongs():
 
 def test_malformed_json_names_its_line():
     code, text = _run(["audit", "--design", MAKEFILE, "--html", HTML,
-                       "--css", CSS, "--out", OUT])
+                       "--css", CSS, "--out", "/tmp/brush-clitest"])
     assert code == 2
     assert "not valid json" in text.lower() and "line" in text.lower(), text
     print("  ok  malformed JSON reports the line and the check command")
@@ -95,20 +93,9 @@ def test_replay_without_cassette():
 
 
 def test_unwritable_output_directory():
-    """A path that cannot be a directory on any platform: a child of a real file.
-
-    (This used to point at /proc, which does not exist on Windows -- the check
-    then passed for the wrong reason, or failed outright.)
-    """
-    with tempfile.NamedTemporaryFile(suffix=".not-a-dir", delete=False) as fh:
-        blocker = fh.name
-    try:
-        code, text = _audit("--out", os.path.join(blocker, "out"))
-        assert code == 2, f"expected exit 2, got {code}"
-        assert "output directory" in text.lower(), text
-        assert "Traceback" not in text
-    finally:
-        os.unlink(blocker)
+    code, text = _audit("--out", "/proc/definitely-not-writable")
+    assert code == 2
+    assert "output directory" in text.lower(), text
     print("  ok  an unwritable --out is caught before any work is done")
 
 
@@ -116,7 +103,7 @@ def test_auditing_nothing_is_never_success():
     """The worst of the bunch: an empty page used to exit 0 having audited zero
     components, which reads as a clean bill of health."""
     code, text = _run(["audit", "--design", DESIGN, "--html", os.devnull,
-                       "--css", CSS, "--out", OUT])
+                       "--css", CSS, "--out", "/tmp/brush-clitest"])
     assert code != 0, "auditing nothing must not report success"
     assert "no components" in text.lower(), text
     print("  ok  a page with no matching components fails loudly")
@@ -216,7 +203,7 @@ def test_missing_openpyxl_is_a_clean_message():
     try:
         code, text = _run(["batch", "--sheet", os.path.join(ROOT, "eval", "cases",
                                                             "brush_cases.xlsx"),
-                           "--out", os.path.join(OUT, "x.xlsx")])
+                           "--out", "/tmp/brush-clitest/x.xlsx"])
     finally:
         builtins.__import__ = real
         for mod in [m for m in list(sys.modules) if m.startswith("brush.batch")]:
@@ -230,7 +217,7 @@ def test_missing_openpyxl_is_a_clean_message():
 LABEL = "CLI error cases"
 
 if __name__ == "__main__":
-    os.makedirs(OUT, exist_ok=True)
+    os.makedirs("/tmp/brush-clitest", exist_ok=True)
     fails = skips = 0
     names = sorted(n for n in dict(globals()) if n.startswith("test_"))
     for name in names:

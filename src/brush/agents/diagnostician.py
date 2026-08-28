@@ -242,7 +242,16 @@ def offline_diagnose(payload: dict) -> dict:
         principles = [pid for pid in k.get("applicable_principles", {})]
         detail = item.get("detail") or {}
         token = detail.get("nearest_token") or detail.get("nearest_space_token") or "—"
-        tmpl = FIX_TEMPLATES.get(item["channel"], "Restore `{prop}` to {design}.")
+        # An absent value is a different sentence from a wrong one: "replace the
+        # literal None" reads as a bug in the tool, and the actual remedy is to
+        # restore the declaration, not to swap a value.
+        if item.get("code_value") in (None, "", "None"):
+            tmpl = ("Restore `{prop}`" +
+                    (" to the `{token}` token ({design}) — the declaration is missing."
+                     if token != "—"
+                     else " to {design} — the declaration is missing."))
+        else:
+            tmpl = FIX_TEMPLATES.get(item["channel"], "Restore `{prop}` to {design}.")
         fix = tmpl.format(prop=prop, design=item["design_value"],
                           code=item["code_value"], token=token)
         findings.append({

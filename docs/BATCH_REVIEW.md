@@ -28,7 +28,7 @@ Fill in the yellow cells. Everything else is written by Brush.
 | `CODE` | you | path to the `.html` implementation |
 | `CSS` | you | stylesheet(s), comma separated. Left blank, Brush looks for a `.css` beside the HTML |
 | `EXPECTED` | you, optionally | the score *you* would give the row: `0`, `0.5` or `1` |
-| `RESPUESTA BRUSH` | Brush | what was found, summarised |
+| `BRUSH RESPONSE` | Brush | what was found, summarised |
 | `BLOCKERS` / `MAJORS` / `MINORS` / `INFO` | Brush | counts by severity band |
 | `CONFORMANCE` | Brush | `0` / `0.5` / `1` — does the code match the design |
 | `POINTS` | Brush | `0` / `0.5` / `1` — was Brush right |

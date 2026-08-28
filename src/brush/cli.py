@@ -369,29 +369,27 @@ def cmd_doctor(a) -> int:
     print("\n  Brush — installation check\n")
     width = max(len(r[0]) for r in rows) + 2
     for name, ok, detail, _ in required:
-        _print_row("ok  " if ok else "FAIL", name, detail, width)
+        print(f"  {'ok  ' if ok else 'FAIL'}  {name:<{width}} {detail}")
     print()
     for name, ok, detail, _ in optional:
-        _print_row("ok  " if ok else "--  ", name, detail, width)
+        print(f"  {'ok  ' if ok else '--  '}  {name:<{width}} {detail}")
 
     failures = [r for r in required if not r[1]]
     if failures:
         print("\n  Fix these first:\n")
         for name, _, _, fix in failures:
-            _print_fix(name, fix)
+            print(f"    {name}\n      → {fix}\n")
         return 1
 
     skipped = [r for r in optional if not r[1]]
     if skipped:
         print("\n  Optional features not available (everything else works):\n")
         for name, _, _, fix in skipped:
-            _print_fix(name, fix)
+            print(f"    {name}\n      → {fix}\n")
     else:
         print()
     print("  Ready. Try:\n")
-    for i, line in enumerate(_example_command()):
-        print(f"    {line}" if i == 0 else f"        {line}")
-    print()
+    print(f"    {_example_command()}\n")
     return 0
 
 
@@ -412,70 +410,15 @@ def _launcher() -> str:
     return f"{exe} -m brush.cli"
 
 
-def _example_command() -> list[str]:
-    """
-    A copy-pasteable command, split across lines only when it will not fit.
-
-    A line longer than the window gets wrapped by the terminal, and a wrapped
-    line loses the space it broke on when it is copied back out -- which is how
-    `--design ... --html ...` reaches the clipboard as `--design ...--html`.
-    So: one line when it fits, otherwise one flag per line, joined by whichever
-    continuation character this shell understands.
-    """
+def _example_command() -> str:
+    """A single-line command that is correct for this shell."""
     parts = [
         f"{_launcher()} audit",
         "--design eval/cases/design.spec.json",
         "--html   eval/cases/checkout.html",
         "--css    eval/cases/generated/case_01.css",
     ]
-    single = " ".join(parts)
-    if 4 + len(single) <= _term_width():
-        return [single]
-    cont = _continuation()
-    return [part + (f" {cont}" if part is not parts[-1] else "")
-            for part in parts]
-
-
-def _continuation() -> str:
-    """The character that carries a command onto the next line, per shell."""
-    if os.name != "nt":
-        return "\\"
-    # PowerShell always exports PSModulePath; cmd.exe on its own does not.
-    return "`" if os.environ.get("PSModulePath") else "^"
-
-
-def _term_width() -> int:
-    """
-    Usable columns -- one short of the real width.
-
-    Writing into the very last column wraps on a Windows console, so that column
-    is left empty on purpose.
-    """
-    import shutil
-    return max(48, shutil.get_terminal_size(fallback=(80, 24)).columns - 1)
-
-
-def _print_row(mark: str, name: str, detail: str, width: int) -> None:
-    """One doctor line, folded by us rather than wrapped by the terminal."""
-    import textwrap
-    cols = _term_width()
-    line = f"  {mark}  {name:<{width}} {detail}"
-    if len(line) <= cols:
-        print(line)
-        return
-    print(f"  {mark}  {name}")
-    for chunk in textwrap.wrap(detail, max(24, cols - 10)) or [""]:
-        print(f"          {chunk}")
-
-
-def _print_fix(name: str, fix: str) -> None:
-    """A remedy, indented under the check it belongs to."""
-    import textwrap
-    cols = _term_width()
-    print(f"    {name}")
-    for i, chunk in enumerate(textwrap.wrap(fix, max(24, cols - 8)) or [""]):
-        print(f"      {'\u2192 ' if i == 0 else '  '}{chunk}")
-    print()
+    return " ".join(parts)
 
 
 def _repo_root() -> str:

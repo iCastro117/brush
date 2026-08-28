@@ -4,8 +4,8 @@
     "note": "Figures produced with the deterministic offline policy. It is not a language model; see docs/REPRODUCTION.md. Re-run with --provider anthropic for live model figures.",
     "seed": 20260828,
     "cases": 12,
-    "generated_at": "2026-08-28T20:39:50Z",
-    "total_wall_seconds": 0.97
+    "generated_at": "2026-08-28T20:14:35Z",
+    "total_wall_seconds": 0.84
   },
   "aggregate": {
     "baseline": {
@@ -24,7 +24,7 @@
       "macro_f1": 0.8777,
       "review_burden": 82,
       "false_positives_on_clean": 0,
-      "wall_seconds": 0.071,
+      "wall_seconds": 0.064,
       "cost_usd": 0.0,
       "catalogue_mutations": 51,
       "catalogue_caught": 49,
@@ -46,7 +46,7 @@
       "macro_f1": 1.0,
       "review_burden": 105,
       "false_positives_on_clean": 0,
-      "wall_seconds": 0.379,
+      "wall_seconds": 0.333,
       "cost_usd": 2.032806,
       "catalogue_mutations": 51,
       "catalogue_caught": 51,
@@ -91,7 +91,7 @@
           "missed_mutation_ids": []
         },
         "emitted": 0,
-        "wall_seconds": 0.0076,
+        "wall_seconds": 0.0081,
         "cost_usd": 0.0,
         "severity": null
       },
@@ -120,7 +120,7 @@
         },
         "emitted": 0,
         "high_severity": 0,
-        "wall_seconds": 0.03,
+        "wall_seconds": 0.025,
         "cost_usd": 0.103089,
         "severity": {
           "checked": 0,
@@ -199,7 +199,7 @@
           ]
         },
         "emitted": 24,
-        "wall_seconds": 0.0066,
+        "wall_seconds": 0.0052,
         "cost_usd": 0.0,
         "severity": null
       },
@@ -228,7 +228,7 @@
         },
         "emitted": 31,
         "high_severity": 25,
-        "wall_seconds": 0.039,
+        "wall_seconds": 0.032,
         "cost_usd": 0.343413,
         "severity": {
           "checked": 36,
@@ -286,7 +286,7 @@
           "missed_mutation_ids": []
         },
         "emitted": 6,
-        "wall_seconds": 0.0067,
+        "wall_seconds": 0.0052,
         "cost_usd": 0.0,
         "severity": null
       },
@@ -315,7 +315,7 @@
         },
         "emitted": 7,
         "high_severity": 1,
-        "wall_seconds": 0.038,
+        "wall_seconds": 0.027,
         "cost_usd": 0.139401,
         "severity": {
           "checked": 7,
@@ -372,7 +372,7 @@
           "missed_mutation_ids": []
         },
         "emitted": 7,
-        "wall_seconds": 0.005,
+        "wall_seconds": 0.0051,
         "cost_usd": 0.0,
         "severity": null
       },
@@ -401,7 +401,7 @@
         },
         "emitted": 8,
         "high_severity": 3,
-        "wall_seconds": 0.038,
+        "wall_seconds": 0.029,
         "cost_usd": 0.168312,
         "severity": {
           "checked": 9,
@@ -453,7 +453,7 @@
           "missed_mutation_ids": []
         },
         "emitted": 2,
-        "wall_seconds": 0.0116,
+        "wall_seconds": 0.0055,
         "cost_usd": 0.0,
         "severity": null
       },
@@ -482,7 +482,7 @@
         },
         "emitted": 2,
         "high_severity": 2,
-        "wall_seconds": 0.045,
+        "wall_seconds": 0.03,
         "cost_usd": 0.122415,
         "severity": {
           "checked": 2,
@@ -541,7 +541,7 @@
           "missed_mutation_ids": []
         },
         "emitted": 7,
-        "wall_seconds": 0.0046,
+        "wall_seconds": 0.0052,
         "cost_usd": 0.0,
         "severity": null
       },
@@ -570,7 +570,7 @@
         },
         "emitted": 9,
         "high_severity": 4,
-        "wall_seconds": 0.029,
+        "wall_seconds": 0.027,
         "cost_usd": 0.158211,
         "severity": {
           "checked": 9,
@@ -626,7 +626,7 @@
           "missed_mutation_ids": []
         },
         "emitted": 4,
-        "wall_seconds": 0.0053,
+        "wall_seconds": 0.0052,
         "cost_usd": 0.0,
         "severity": null
       },
@@ -655,7 +655,7 @@
         },
         "emitted": 5,
         "high_severity": 8,
-        "wall_seconds": 0.027,
+        "wall_seconds": 0.026,
         "cost_usd": 0.148944,
         "severity": {
           "checked": 6,
@@ -715,7 +715,7 @@
           "missed_mutation_ids": []
         },
         "emitted": 10,
-        "wall_seconds": 0.0046,
+        "wall_seconds": 0.0049,
         "cost_usd": 0.0,
         "severity": null
       },
@@ -744,7 +744,7 @@
         },
         "emitted": 12,
         "high_severity": 1,
-        "wall_seconds": 0.027,
+        "wall_seconds": 0.028,
         "cost_usd": 0.172392,
         "severity": {
           "checked": 11,
@@ -819,7 +819,7 @@
           ]
         },
         "emitted": 3,
-        "wall_seconds": 0.0046,
+        "wall_seconds": 0.005,
         "cost_usd": 0.0,
         "severity": null
       },
@@ -848,7 +848,7 @@
         },
         "emitted": 8,
         "high_severity": 7,
-        "wall_seconds": 0.025,
+        "wall_seconds": 0.027,
         "cost_usd": 0.1605,
         "severity": {
           "checked": 6,
@@ -905,7 +905,7 @@
           "missed_mutation_ids": []
         },
         "emitted": 5,
-        "wall_seconds": 0.0047,
+        "wall_seconds": 0.0049,
         "cost_usd": 0.0,
         "severity": null
       },
@@ -934,7 +934,7 @@
         },
         "emitted": 6,
         "high_severity": 13,
-        "wall_seconds": 0.027,
+        "wall_seconds": 0.03,
         "cost_usd": 0.181227,
         "severity": {
           "checked": 11,
@@ -1018,7 +1018,7 @@
         },
         "emitted": 9,
         "high_severity": 7,
-        "wall_seconds": 0.027,
+        "wall_seconds": 0.026,
         "cost_usd": 0.167871,
         "severity": {
           "checked": 9,
@@ -1079,7 +1079,7 @@
           "missed_mutation_ids": []
         },
         "emitted": 6,
-        "wall_seconds": 0.0048,
+        "wall_seconds": 0.0049,
         "cost_usd": 0.0,
         "severity": null
       },
@@ -1108,7 +1108,7 @@
         },
         "emitted": 8,
         "high_severity": 2,
-        "wall_seconds": 0.027,
+        "wall_seconds": 0.026,
         "cost_usd": 0.167031,
         "severity": {
           "checked": 8,
