@@ -1,0 +1,312 @@
+{
+  "name": "Meridian Checkout DS",
+  "version": "2.4.0",
+  "description": "Design system for the Meridian checkout flow. Exported from the design tool and normalised. This file is the source of truth the implementation is audited against.",
+  "root_font_size": 16,
+  "grid_base": 4,
+  "tokens": {
+    "color": {
+      "brand-600": "#1F6FEB",
+      "brand-700": "#1858C4",
+      "brand-050": "#EAF2FE",
+      "ink-900": "#0F1115",
+      "ink-700": "#3A404B",
+      "ink-500": "#6B7280",
+      "ink-300": "#B6BCC6",
+      "surface-000": "#FFFFFF",
+      "surface-050": "#F7F8FA",
+      "surface-100": "#EDEFF3",
+      "danger-600": "#C62828",
+      "danger-050": "#FDECEC",
+      "success-600": "#1B7F4B",
+      "focus-ring": "#1F6FEB"
+    },
+    "space": {
+      "space-1": "4px",
+      "space-2": "8px",
+      "space-3": "12px",
+      "space-4": "16px",
+      "space-5": "20px",
+      "space-6": "24px",
+      "space-8": "32px",
+      "space-10": "40px"
+    },
+    "font_size": {
+      "fs-caption": "12px",
+      "fs-small": "14px",
+      "fs-body": "16px",
+      "fs-lead": "20px",
+      "fs-h3": "24px",
+      "fs-h2": "30px",
+      "fs-h1": "36px"
+    },
+    "font_weight": {
+      "fw-regular": 400,
+      "fw-medium": 500,
+      "fw-semibold": 600,
+      "fw-bold": 700
+    },
+    "radius": {
+      "radius-sm": "4px",
+      "radius-md": "8px",
+      "radius-lg": "12px",
+      "radius-pill": "999px"
+    }
+  },
+  "type_scale": {
+    "ratio": 1.25,
+    "note": "Major third. Sizes are rounded to the 2px grid for rendering crispness."
+  },
+  "components": [
+    {
+      "name": "Button/Primary",
+      "role": "button",
+      "selector_hint": "button.btn.btn--primary",
+      "text": "Place order",
+      "on_background": "{color.surface-000}",
+      "props": {
+        "padding": "12px 24px",
+        "background-color": "{color.brand-600}",
+        "color": "{color.surface-000}",
+        "font-family": "Inter, system-ui, sans-serif",
+        "font-size": "{font_size.fs-body}",
+        "font-weight": 600,
+        "line-height": "1.5",
+        "letter-spacing": "0px",
+        "border-radius": "{radius.radius-md}",
+        "border-width": "0px",
+        "min-height": "48px",
+        "gap": "{space.space-2}"
+      },
+      "states": {
+        "hover": {
+          "background-color": "{color.brand-700}"
+        },
+        "focus": {
+          "outline-width": "2px",
+          "outline-style": "solid",
+          "outline-color": "{color.focus-ring}"
+        }
+      }
+    },
+    {
+      "name": "Button/Secondary",
+      "role": "button",
+      "selector_hint": "button.btn.btn--secondary",
+      "text": "Back to cart",
+      "on_background": "{color.surface-000}",
+      "props": {
+        "padding": "12px 24px",
+        "background-color": "{color.surface-000}",
+        "color": "{color.brand-600}",
+        "font-family": "Inter, system-ui, sans-serif",
+        "font-size": "{font_size.fs-body}",
+        "font-weight": 600,
+        "line-height": "1.5",
+        "border-radius": "{radius.radius-md}",
+        "border-width": "1px",
+        "border-color": "{color.brand-600}",
+        "min-height": "48px"
+      },
+      "states": {
+        "focus": {
+          "outline-width": "2px",
+          "outline-style": "solid",
+          "outline-color": "{color.focus-ring}"
+        }
+      }
+    },
+    {
+      "name": "Button/Ghost",
+      "role": "button",
+      "selector_hint": "button.btn.btn--ghost",
+      "text": "Edit",
+      "on_background": "{color.surface-050}",
+      "props": {
+        "padding": "8px 12px",
+        "background-color": "transparent",
+        "color": "{color.ink-700}",
+        "font-family": "Inter, system-ui, sans-serif",
+        "font-size": "{font_size.fs-small}",
+        "font-weight": 500,
+        "line-height": "1.5",
+        "border-radius": "{radius.radius-sm}",
+        "border-width": "0px",
+        "min-height": "44px"
+      }
+    },
+    {
+      "name": "Input/Text",
+      "role": "input",
+      "selector_hint": "input.field__input",
+      "on_background": "{color.surface-000}",
+      "props": {
+        "padding": "12px 16px",
+        "background-color": "{color.surface-000}",
+        "color": "{color.ink-900}",
+        "font-family": "Inter, system-ui, sans-serif",
+        "font-size": "{font_size.fs-body}",
+        "font-weight": 400,
+        "line-height": "1.5",
+        "border-radius": "{radius.radius-md}",
+        "border-width": "1px",
+        "border-color": "{color.ink-300}",
+        "min-height": "48px"
+      },
+      "states": {
+        "focus": {
+          "border-color": "{color.brand-600}",
+          "outline-width": "2px",
+          "outline-style": "solid",
+          "outline-color": "{color.focus-ring}"
+        }
+      }
+    },
+    {
+      "name": "Input/Label",
+      "role": "label",
+      "selector_hint": "label.field__label",
+      "text": "Card number",
+      "on_background": "{color.surface-000}",
+      "props": {
+        "margin-bottom": "{space.space-2}",
+        "color": "{color.ink-700}",
+        "font-family": "Inter, system-ui, sans-serif",
+        "font-size": "{font_size.fs-small}",
+        "font-weight": 500,
+        "line-height": "1.43",
+        "letter-spacing": "0px"
+      }
+    },
+    {
+      "name": "Input/HelpText",
+      "role": "body",
+      "selector_hint": "p.field__help",
+      "text": "We never store your full card number.",
+      "on_background": "{color.surface-000}",
+      "props": {
+        "margin-top": "{space.space-1}",
+        "color": "{color.ink-500}",
+        "font-family": "Inter, system-ui, sans-serif",
+        "font-size": "{font_size.fs-caption}",
+        "font-weight": 400,
+        "line-height": "1.5"
+      }
+    },
+    {
+      "name": "Input/ErrorText",
+      "role": "body",
+      "selector_hint": "p.field__error",
+      "text": "Enter a valid card number.",
+      "on_background": "{color.surface-000}",
+      "props": {
+        "margin-top": "{space.space-1}",
+        "color": "{color.danger-600}",
+        "font-family": "Inter, system-ui, sans-serif",
+        "font-size": "{font_size.fs-caption}",
+        "font-weight": 500,
+        "line-height": "1.5"
+      }
+    },
+    {
+      "name": "Card/Summary",
+      "role": "card",
+      "selector_hint": "section.summary",
+      "on_background": "{color.surface-050}",
+      "props": {
+        "padding": "24px",
+        "background-color": "{color.surface-000}",
+        "border-radius": "{radius.radius-lg}",
+        "border-width": "1px",
+        "border-color": "{color.surface-100}",
+        "gap": "{space.space-4}"
+      }
+    },
+    {
+      "name": "Card/Title",
+      "role": "heading",
+      "selector_hint": "h2.summary__title",
+      "text": "Order summary",
+      "on_background": "{color.surface-000}",
+      "props": {
+        "margin-bottom": "{space.space-4}",
+        "color": "{color.ink-900}",
+        "font-family": "Inter, system-ui, sans-serif",
+        "font-size": "{font_size.fs-h3}",
+        "font-weight": 600,
+        "line-height": "1.33",
+        "letter-spacing": "-0.4px"
+      }
+    },
+    {
+      "name": "List/Row",
+      "role": "listitem",
+      "selector_hint": "li.summary__row",
+      "on_background": "{color.surface-000}",
+      "props": {
+        "padding-top": "{space.space-3}",
+        "padding-bottom": "{space.space-3}",
+        "color": "{color.ink-700}",
+        "font-family": "Inter, system-ui, sans-serif",
+        "font-size": "{font_size.fs-body}",
+        "font-weight": 400,
+        "line-height": "1.5",
+        "border-width": "1px",
+        "border-color": "{color.surface-100}"
+      }
+    },
+    {
+      "name": "Badge/Success",
+      "role": "status",
+      "selector_hint": "span.badge.badge--success",
+      "text": "Applied",
+      "on_background": "{color.surface-000}",
+      "props": {
+        "padding": "4px 8px",
+        "background-color": "{color.surface-050}",
+        "color": "{color.success-600}",
+        "font-family": "Inter, system-ui, sans-serif",
+        "font-size": "{font_size.fs-caption}",
+        "font-weight": 600,
+        "line-height": "1.33",
+        "border-radius": "{radius.radius-pill}",
+        "letter-spacing": "0.2px"
+      }
+    },
+    {
+      "name": "Alert/Danger",
+      "role": "alert",
+      "selector_hint": "div.alert.alert--danger",
+      "text": "Your card was declined.",
+      "on_background": "{color.surface-000}",
+      "props": {
+        "padding": "16px",
+        "background-color": "{color.danger-050}",
+        "color": "{color.danger-600}",
+        "font-family": "Inter, system-ui, sans-serif",
+        "font-size": "{font_size.fs-small}",
+        "font-weight": 500,
+        "line-height": "1.5",
+        "border-radius": "{radius.radius-md}",
+        "border-width": "1px",
+        "border-color": "{color.danger-600}",
+        "gap": "{space.space-2}"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "name": "Field/LabelBinding",
+      "inner": {
+        "component": "Input/Label",
+        "prop": "margin-bottom"
+      },
+      "outer": {
+        "selector": ".field",
+        "prop": "margin-bottom",
+        "value": "{space.space-6}"
+      },
+      "note": "Law of Proximity: the label binds to its own field only while the gap below the label stays clearly smaller than the gap between fields. Grouping is stable at a ratio of 1.5 or better."
+    }
+  ]
+}

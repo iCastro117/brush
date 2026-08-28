@@ -1,0 +1,1135 @@
+{
+  "provenance": {
+    "provider": "offline",
+    "note": "Figures produced with the deterministic offline policy. It is not a language model; see docs/REPRODUCTION.md. Re-run with --provider anthropic for live model figures.",
+    "seed": 20260828,
+    "cases": 12,
+    "generated_at": "2026-08-28T20:39:50Z",
+    "total_wall_seconds": 0.97
+  },
+  "aggregate": {
+    "baseline": {
+      "plain_recall": 0.9318,
+      "plain_gt": 88,
+      "plain_tp": 82,
+      "derived_recall": 0.0,
+      "derived_gt": 17,
+      "derived_tp": 0,
+      "tp": 82,
+      "fp": 0,
+      "fn": 23,
+      "precision": 1.0,
+      "recall": 0.781,
+      "f1": 0.877,
+      "macro_f1": 0.8777,
+      "review_burden": 82,
+      "false_positives_on_clean": 0,
+      "wall_seconds": 0.071,
+      "cost_usd": 0.0,
+      "catalogue_mutations": 51,
+      "catalogue_caught": 49,
+      "catalogue_recall": 0.9608
+    },
+    "pipeline": {
+      "plain_recall": 1.0,
+      "plain_gt": 88,
+      "plain_tp": 88,
+      "derived_recall": 1.0,
+      "derived_gt": 17,
+      "derived_tp": 17,
+      "tp": 105,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "macro_f1": 1.0,
+      "review_burden": 105,
+      "false_positives_on_clean": 0,
+      "wall_seconds": 0.379,
+      "cost_usd": 2.032806,
+      "catalogue_mutations": 51,
+      "catalogue_caught": 51,
+      "catalogue_recall": 1.0,
+      "severity_accuracy": 1.0,
+      "severity_checked": 114
+    },
+    "delta": {
+      "recall_points": 21.9,
+      "precision_points": 0.0,
+      "f1_points": 12.3,
+      "defects_found_additional": 23
+    }
+  },
+  "cases": [
+    {
+      "case_id": "case_00",
+      "label": "clean control \u2014 a correct detector reports nothing here",
+      "mutation_count": 0,
+      "ground_truth_size": 0,
+      "baseline": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "plain": {
+          "gt": 0,
+          "tp": 0
+        },
+        "derived": {
+          "gt": 0,
+          "tp": 0
+        },
+        "missed": [],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 0,
+          "caught": 0,
+          "recall": null,
+          "missed_mutation_ids": []
+        },
+        "emitted": 0,
+        "wall_seconds": 0.0076,
+        "cost_usd": 0.0,
+        "severity": null
+      },
+      "pipeline": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "plain": {
+          "gt": 0,
+          "tp": 0
+        },
+        "derived": {
+          "gt": 0,
+          "tp": 0
+        },
+        "missed": [],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 0,
+          "caught": 0,
+          "recall": null,
+          "missed_mutation_ids": []
+        },
+        "emitted": 0,
+        "high_severity": 0,
+        "wall_seconds": 0.03,
+        "cost_usd": 0.103089,
+        "severity": {
+          "checked": 0,
+          "correct": 0,
+          "accuracy": null,
+          "mismatches": []
+        },
+        "by_severity": {},
+        "verification": {
+          "proposed": 0,
+          "accepted": 0,
+          "suppressed_by_ledger": 0,
+          "rejection_rate": 0.0
+        },
+        "tool_calls": 12,
+        "trajectory": "eval-case_00.trajectory.jsonl"
+      }
+    },
+    {
+      "case_id": "case_01",
+      "label": "everything at once \u2014 the hard case",
+      "mutation_count": 17,
+      "ground_truth_size": 31,
+      "baseline": {
+        "tp": 24,
+        "fp": 0,
+        "fn": 7,
+        "precision": 1.0,
+        "recall": 0.7742,
+        "f1": 0.8727,
+        "plain": {
+          "gt": 27,
+          "tp": 24
+        },
+        "derived": {
+          "gt": 4,
+          "tp": 0
+        },
+        "missed": [
+          [
+            "Alert/Danger",
+            "-derived-grid-conformance"
+          ],
+          [
+            "Button/Ghost",
+            "-derived-target-height"
+          ],
+          [
+            "Button/Primary",
+            "outline-color"
+          ],
+          [
+            "Button/Primary",
+            "outline-style"
+          ],
+          [
+            "Button/Primary",
+            "outline-width"
+          ],
+          [
+            "Card/Summary",
+            "-derived-grid-conformance"
+          ],
+          [
+            "Input/Label",
+            "-derived-grid-conformance"
+          ]
+        ],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 17,
+          "caught": 16,
+          "recall": 0.9412,
+          "missed_mutation_ids": [
+            "M11"
+          ]
+        },
+        "emitted": 24,
+        "wall_seconds": 0.0066,
+        "cost_usd": 0.0,
+        "severity": null
+      },
+      "pipeline": {
+        "tp": 31,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "plain": {
+          "gt": 27,
+          "tp": 27
+        },
+        "derived": {
+          "gt": 4,
+          "tp": 4
+        },
+        "missed": [],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 17,
+          "caught": 17,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 31,
+        "high_severity": 25,
+        "wall_seconds": 0.039,
+        "cost_usd": 0.343413,
+        "severity": {
+          "checked": 36,
+          "correct": 36,
+          "accuracy": 1.0,
+          "mismatches": []
+        },
+        "by_severity": {
+          "info": 7,
+          "major": 19,
+          "blocker": 6,
+          "minor": 9
+        },
+        "verification": {
+          "proposed": 41,
+          "accepted": 41,
+          "suppressed_by_ledger": 0,
+          "rejection_rate": 0.0
+        },
+        "tool_calls": 26,
+        "trajectory": "eval-case_01.trajectory.jsonl"
+      }
+    },
+    {
+      "case_id": "case_02",
+      "label": "3 defects: letter_spacing, space_offgrid, type_size",
+      "mutation_count": 3,
+      "ground_truth_size": 7,
+      "baseline": {
+        "tp": 6,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.8571,
+        "f1": 0.9231,
+        "plain": {
+          "gt": 6,
+          "tp": 6
+        },
+        "derived": {
+          "gt": 1,
+          "tp": 0
+        },
+        "missed": [
+          [
+            "Card/Summary",
+            "-derived-grid-conformance"
+          ]
+        ],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 3,
+          "caught": 3,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 6,
+        "wall_seconds": 0.0067,
+        "cost_usd": 0.0,
+        "severity": null
+      },
+      "pipeline": {
+        "tp": 7,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "plain": {
+          "gt": 6,
+          "tp": 6
+        },
+        "derived": {
+          "gt": 1,
+          "tp": 1
+        },
+        "missed": [],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 3,
+          "caught": 3,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 7,
+        "high_severity": 1,
+        "wall_seconds": 0.038,
+        "cost_usd": 0.139401,
+        "severity": {
+          "checked": 7,
+          "correct": 7,
+          "accuracy": 1.0,
+          "mismatches": []
+        },
+        "by_severity": {
+          "minor": 5,
+          "major": 1,
+          "info": 1
+        },
+        "verification": {
+          "proposed": 7,
+          "accepted": 7,
+          "suppressed_by_ledger": 0,
+          "rejection_rate": 0.0
+        },
+        "tool_calls": 13,
+        "trajectory": "eval-case_02.trajectory.jsonl"
+      }
+    },
+    {
+      "case_id": "case_03",
+      "label": "4 defects: family_fallback, leading_crush, radius_drift, space_subpixel",
+      "mutation_count": 4,
+      "ground_truth_size": 8,
+      "baseline": {
+        "tp": 7,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.875,
+        "f1": 0.9333,
+        "plain": {
+          "gt": 7,
+          "tp": 7
+        },
+        "derived": {
+          "gt": 1,
+          "tp": 0
+        },
+        "missed": [
+          [
+            "Alert/Danger",
+            "-derived-grid-conformance"
+          ]
+        ],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 4,
+          "caught": 4,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 7,
+        "wall_seconds": 0.005,
+        "cost_usd": 0.0,
+        "severity": null
+      },
+      "pipeline": {
+        "tp": 8,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "plain": {
+          "gt": 7,
+          "tp": 7
+        },
+        "derived": {
+          "gt": 1,
+          "tp": 1
+        },
+        "missed": [],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 4,
+          "caught": 4,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 8,
+        "high_severity": 3,
+        "wall_seconds": 0.038,
+        "cost_usd": 0.168312,
+        "severity": {
+          "checked": 9,
+          "correct": 9,
+          "accuracy": 1.0,
+          "mismatches": []
+        },
+        "by_severity": {
+          "minor": 3,
+          "major": 3,
+          "info": 4
+        },
+        "verification": {
+          "proposed": 10,
+          "accepted": 10,
+          "suppressed_by_ledger": 0,
+          "rejection_rate": 0.0
+        },
+        "tool_calls": 15,
+        "trajectory": "eval-case_03.trajectory.jsonl"
+      }
+    },
+    {
+      "case_id": "case_04",
+      "label": "2 defects: border_contrast, color_contrast",
+      "mutation_count": 2,
+      "ground_truth_size": 2,
+      "baseline": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "plain": {
+          "gt": 2,
+          "tp": 2
+        },
+        "derived": {
+          "gt": 0,
+          "tp": 0
+        },
+        "missed": [],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 2,
+          "caught": 2,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 2,
+        "wall_seconds": 0.0116,
+        "cost_usd": 0.0,
+        "severity": null
+      },
+      "pipeline": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "plain": {
+          "gt": 2,
+          "tp": 2
+        },
+        "derived": {
+          "gt": 0,
+          "tp": 0
+        },
+        "missed": [],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 2,
+          "caught": 2,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 2,
+        "high_severity": 2,
+        "wall_seconds": 0.045,
+        "cost_usd": 0.122415,
+        "severity": {
+          "checked": 2,
+          "correct": 2,
+          "accuracy": 1.0,
+          "mismatches": []
+        },
+        "by_severity": {
+          "blocker": 2
+        },
+        "verification": {
+          "proposed": 2,
+          "accepted": 2,
+          "suppressed_by_ledger": 0,
+          "rejection_rate": 0.0
+        },
+        "tool_calls": 14,
+        "trajectory": "eval-case_04.trajectory.jsonl"
+      }
+    },
+    {
+      "case_id": "case_05",
+      "label": "4 defects: color_semantic_swap, proximity_inversion, space_offgrid, type_size",
+      "mutation_count": 4,
+      "ground_truth_size": 9,
+      "baseline": {
+        "tp": 7,
+        "fp": 0,
+        "fn": 2,
+        "precision": 1.0,
+        "recall": 0.7778,
+        "f1": 0.875,
+        "plain": {
+          "gt": 7,
+          "tp": 7
+        },
+        "derived": {
+          "gt": 2,
+          "tp": 0
+        },
+        "missed": [
+          [
+            "Card/Summary",
+            "-derived-grid-conformance"
+          ],
+          [
+            "Input/Label",
+            "-derived-proximity-ratio"
+          ]
+        ],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 4,
+          "caught": 4,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 7,
+        "wall_seconds": 0.0046,
+        "cost_usd": 0.0,
+        "severity": null
+      },
+      "pipeline": {
+        "tp": 9,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "plain": {
+          "gt": 7,
+          "tp": 7
+        },
+        "derived": {
+          "gt": 2,
+          "tp": 2
+        },
+        "missed": [],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 4,
+          "caught": 4,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 9,
+        "high_severity": 4,
+        "wall_seconds": 0.029,
+        "cost_usd": 0.158211,
+        "severity": {
+          "checked": 9,
+          "correct": 9,
+          "accuracy": 1.0,
+          "mismatches": []
+        },
+        "by_severity": {
+          "major": 4,
+          "minor": 5
+        },
+        "verification": {
+          "proposed": 9,
+          "accepted": 9,
+          "suppressed_by_ledger": 0,
+          "rejection_rate": 0.0
+        },
+        "tool_calls": 15,
+        "trajectory": "eval-case_05.trajectory.jsonl"
+      }
+    },
+    {
+      "case_id": "case_06",
+      "label": "3 defects: color_semantic_swap, target_below_min, weight_flatten",
+      "mutation_count": 3,
+      "ground_truth_size": 5,
+      "baseline": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.8,
+        "f1": 0.8889,
+        "plain": {
+          "gt": 4,
+          "tp": 4
+        },
+        "derived": {
+          "gt": 1,
+          "tp": 0
+        },
+        "missed": [
+          [
+            "Button/Ghost",
+            "-derived-target-height"
+          ]
+        ],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 3,
+          "caught": 3,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 4,
+        "wall_seconds": 0.0053,
+        "cost_usd": 0.0,
+        "severity": null
+      },
+      "pipeline": {
+        "tp": 5,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "plain": {
+          "gt": 4,
+          "tp": 4
+        },
+        "derived": {
+          "gt": 1,
+          "tp": 1
+        },
+        "missed": [],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 3,
+          "caught": 3,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 5,
+        "high_severity": 8,
+        "wall_seconds": 0.027,
+        "cost_usd": 0.148944,
+        "severity": {
+          "checked": 6,
+          "correct": 6,
+          "accuracy": 1.0,
+          "mismatches": []
+        },
+        "by_severity": {
+          "major": 6,
+          "blocker": 2
+        },
+        "verification": {
+          "proposed": 8,
+          "accepted": 8,
+          "suppressed_by_ledger": 0,
+          "rejection_rate": 0.0
+        },
+        "tool_calls": 14,
+        "trajectory": "eval-case_06.trajectory.jsonl"
+      }
+    },
+    {
+      "case_id": "case_07",
+      "label": "4 defects: border_contrast, letter_spacing, space_offgrid, space_subpixel",
+      "mutation_count": 4,
+      "ground_truth_size": 12,
+      "baseline": {
+        "tp": 10,
+        "fp": 0,
+        "fn": 2,
+        "precision": 1.0,
+        "recall": 0.8333,
+        "f1": 0.9091,
+        "plain": {
+          "gt": 10,
+          "tp": 10
+        },
+        "derived": {
+          "gt": 2,
+          "tp": 0
+        },
+        "missed": [
+          [
+            "Alert/Danger",
+            "-derived-grid-conformance"
+          ],
+          [
+            "Card/Summary",
+            "-derived-grid-conformance"
+          ]
+        ],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 4,
+          "caught": 4,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 10,
+        "wall_seconds": 0.0046,
+        "cost_usd": 0.0,
+        "severity": null
+      },
+      "pipeline": {
+        "tp": 12,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "plain": {
+          "gt": 10,
+          "tp": 10
+        },
+        "derived": {
+          "gt": 2,
+          "tp": 2
+        },
+        "missed": [],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 4,
+          "caught": 4,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 12,
+        "high_severity": 1,
+        "wall_seconds": 0.027,
+        "cost_usd": 0.172392,
+        "severity": {
+          "checked": 11,
+          "correct": 11,
+          "accuracy": 1.0,
+          "mismatches": []
+        },
+        "by_severity": {
+          "blocker": 1,
+          "minor": 6,
+          "info": 5
+        },
+        "verification": {
+          "proposed": 12,
+          "accepted": 12,
+          "suppressed_by_ledger": 0,
+          "rejection_rate": 0.0
+        },
+        "tool_calls": 15,
+        "trajectory": "eval-case_07.trajectory.jsonl"
+      }
+    },
+    {
+      "case_id": "case_08",
+      "label": "4 defects: color_drift, focus_removed, proximity_collapse, target_shrink",
+      "mutation_count": 4,
+      "ground_truth_size": 8,
+      "baseline": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 5,
+        "precision": 1.0,
+        "recall": 0.375,
+        "f1": 0.5455,
+        "plain": {
+          "gt": 6,
+          "tp": 3
+        },
+        "derived": {
+          "gt": 2,
+          "tp": 0
+        },
+        "missed": [
+          [
+            "Button/Ghost",
+            "-derived-target-height"
+          ],
+          [
+            "Button/Primary",
+            "outline-color"
+          ],
+          [
+            "Button/Primary",
+            "outline-style"
+          ],
+          [
+            "Button/Primary",
+            "outline-width"
+          ],
+          [
+            "Input/Label",
+            "-derived-grid-conformance"
+          ]
+        ],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 4,
+          "caught": 3,
+          "recall": 0.75,
+          "missed_mutation_ids": [
+            "M11"
+          ]
+        },
+        "emitted": 3,
+        "wall_seconds": 0.0046,
+        "cost_usd": 0.0,
+        "severity": null
+      },
+      "pipeline": {
+        "tp": 8,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "plain": {
+          "gt": 6,
+          "tp": 6
+        },
+        "derived": {
+          "gt": 2,
+          "tp": 2
+        },
+        "missed": [],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 4,
+          "caught": 4,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 8,
+        "high_severity": 7,
+        "wall_seconds": 0.025,
+        "cost_usd": 0.1605,
+        "severity": {
+          "checked": 6,
+          "correct": 6,
+          "accuracy": 1.0,
+          "mismatches": []
+        },
+        "by_severity": {
+          "blocker": 4,
+          "major": 3,
+          "minor": 1
+        },
+        "verification": {
+          "proposed": 8,
+          "accepted": 8,
+          "suppressed_by_ledger": 0,
+          "rejection_rate": 0.0
+        },
+        "tool_calls": 17,
+        "trajectory": "eval-case_08.trajectory.jsonl"
+      }
+    },
+    {
+      "case_id": "case_09",
+      "label": "3 defects: proximity_inversion, space_nudge, weight_flatten",
+      "mutation_count": 3,
+      "ground_truth_size": 6,
+      "baseline": {
+        "tp": 5,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.8333,
+        "f1": 0.9091,
+        "plain": {
+          "gt": 5,
+          "tp": 5
+        },
+        "derived": {
+          "gt": 1,
+          "tp": 0
+        },
+        "missed": [
+          [
+            "Input/Label",
+            "-derived-proximity-ratio"
+          ]
+        ],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 3,
+          "caught": 3,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 5,
+        "wall_seconds": 0.0047,
+        "cost_usd": 0.0,
+        "severity": null
+      },
+      "pipeline": {
+        "tp": 6,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "plain": {
+          "gt": 5,
+          "tp": 5
+        },
+        "derived": {
+          "gt": 1,
+          "tp": 1
+        },
+        "missed": [],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 3,
+          "caught": 3,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 6,
+        "high_severity": 13,
+        "wall_seconds": 0.027,
+        "cost_usd": 0.181227,
+        "severity": {
+          "checked": 11,
+          "correct": 11,
+          "accuracy": 1.0,
+          "mismatches": []
+        },
+        "by_severity": {
+          "major": 13
+        },
+        "verification": {
+          "proposed": 13,
+          "accepted": 13,
+          "suppressed_by_ledger": 0,
+          "rejection_rate": 0.0
+        },
+        "tool_calls": 17,
+        "trajectory": "eval-case_09.trajectory.jsonl"
+      }
+    },
+    {
+      "case_id": "case_10",
+      "label": "4 defects: color_semantic_swap, space_subpixel, type_size, weight_flatten",
+      "mutation_count": 4,
+      "ground_truth_size": 9,
+      "baseline": {
+        "tp": 8,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.8889,
+        "f1": 0.9412,
+        "plain": {
+          "gt": 8,
+          "tp": 8
+        },
+        "derived": {
+          "gt": 1,
+          "tp": 0
+        },
+        "missed": [
+          [
+            "Alert/Danger",
+            "-derived-grid-conformance"
+          ]
+        ],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 4,
+          "caught": 4,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 8,
+        "wall_seconds": 0.0049,
+        "cost_usd": 0.0,
+        "severity": null
+      },
+      "pipeline": {
+        "tp": 9,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "plain": {
+          "gt": 8,
+          "tp": 8
+        },
+        "derived": {
+          "gt": 1,
+          "tp": 1
+        },
+        "missed": [],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 4,
+          "caught": 4,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 9,
+        "high_severity": 7,
+        "wall_seconds": 0.027,
+        "cost_usd": 0.167871,
+        "severity": {
+          "checked": 9,
+          "correct": 9,
+          "accuracy": 1.0,
+          "mismatches": []
+        },
+        "by_severity": {
+          "major": 7,
+          "info": 4,
+          "minor": 1
+        },
+        "verification": {
+          "proposed": 12,
+          "accepted": 12,
+          "suppressed_by_ledger": 0,
+          "rejection_rate": 0.0
+        },
+        "tool_calls": 13,
+        "trajectory": "eval-case_10.trajectory.jsonl"
+      }
+    },
+    {
+      "case_id": "case_11",
+      "label": "3 defects: proximity_inversion, radius_drift, space_subpixel",
+      "mutation_count": 3,
+      "ground_truth_size": 8,
+      "baseline": {
+        "tp": 6,
+        "fp": 0,
+        "fn": 2,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1": 0.8571,
+        "plain": {
+          "gt": 6,
+          "tp": 6
+        },
+        "derived": {
+          "gt": 2,
+          "tp": 0
+        },
+        "missed": [
+          [
+            "Alert/Danger",
+            "-derived-grid-conformance"
+          ],
+          [
+            "Input/Label",
+            "-derived-proximity-ratio"
+          ]
+        ],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 3,
+          "caught": 3,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 6,
+        "wall_seconds": 0.0048,
+        "cost_usd": 0.0,
+        "severity": null
+      },
+      "pipeline": {
+        "tp": 8,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "plain": {
+          "gt": 6,
+          "tp": 6
+        },
+        "derived": {
+          "gt": 2,
+          "tp": 2
+        },
+        "missed": [],
+        "spurious": [],
+        "catalogue": {
+          "mutations": 3,
+          "caught": 3,
+          "recall": 1.0,
+          "missed_mutation_ids": []
+        },
+        "emitted": 8,
+        "high_severity": 2,
+        "wall_seconds": 0.027,
+        "cost_usd": 0.167031,
+        "severity": {
+          "checked": 8,
+          "correct": 8,
+          "accuracy": 1.0,
+          "mismatches": []
+        },
+        "by_severity": {
+          "minor": 3,
+          "major": 2,
+          "info": 4
+        },
+        "verification": {
+          "proposed": 9,
+          "accepted": 9,
+          "suppressed_by_ledger": 0,
+          "rejection_rate": 0.0
+        },
+        "tool_calls": 17,
+        "trajectory": "eval-case_11.trajectory.jsonl"
+      }
+    }
+  ]
+}

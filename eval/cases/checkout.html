@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meridian — Checkout</title>
+  <link rel="stylesheet" href="checkout.css" />
+</head>
+<body>
+  <main class="checkout">
+    <form class="checkout__form">
+      <h2 class="summary__title" data-ds-component="Card/Title">Order summary</h2>
+
+      <div class="alert alert--danger" data-ds-component="Alert/Danger" role="alert">
+        Your card was declined.
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="card" data-ds-component="Input/Label">Card number</label>
+        <input class="field__input" id="card" type="text" data-ds-component="Input/Text" />
+        <p class="field__help" data-ds-component="Input/HelpText">We never store your full card number.</p>
+        <p class="field__error" data-ds-component="Input/ErrorText">Enter a valid card number.</p>
+      </div>
+
+      <section class="summary" data-ds-component="Card/Summary">
+        <ul class="summary__list">
+          <li class="summary__row" data-ds-component="List/Row">
+            Subtotal
+            <span class="badge badge--success" data-ds-component="Badge/Success">Applied</span>
+          </li>
+        </ul>
+      </section>
+
+      <div class="actions">
+        <button class="btn btn--secondary" type="button" data-ds-component="Button/Secondary">Back to cart</button>
+        <button class="btn btn--ghost" type="button" data-ds-component="Button/Ghost">Edit</button>
+        <button class="btn btn--primary" type="submit" data-ds-component="Button/Primary">Place order</button>
+      </div>
+    </form>
+  </main>
+</body>
+</html>

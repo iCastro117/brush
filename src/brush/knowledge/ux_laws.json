@@ -1,0 +1,722 @@
+{
+  "$schema_note": "Knowledge pack consumed by the diagnostician agent. Every entry is retrievable by id. The agent may only cite law ids that exist here; the verifier rejects any other id. This is what stops the model inventing authoritative-sounding principles.",
+  "version": "1.2.0",
+  "sources": [
+    "Yablonski, J. — Laws of UX (30 entries below, ids prefixed lux-)",
+    "Nielsen, J. — 10 Usability Heuristics for User Interface Design (ids prefixed nn-)",
+    "W3C — WCAG 2.1 / 2.2 success criteria (ids prefixed wcag-)",
+    "CIE — CIEDE2000 colour difference formula (perceptual thresholds below)"
+  ],
+  "perceptual_thresholds": {
+    "delta_e_jnd": {
+      "value": 1.0,
+      "unit": "CIEDE2000",
+      "note": "Just-noticeable difference for a trained observer under ideal conditions. Below this, a colour drift is not a visual defect — it is still a token-hygiene defect, which is why we grade the two separately."
+    },
+    "delta_e_obvious": {
+      "value": 3.0,
+      "unit": "CIEDE2000",
+      "note": "Difference an untrained user notices when the two colours are not adjacent. This is the practical bar for 'the brand colour looks wrong'."
+    },
+    "delta_e_brand_break": {
+      "value": 5.0,
+      "unit": "CIEDE2000",
+      "note": "Reads as a different colour. Breaks Law of Similarity grouping across a screen."
+    },
+    "spacing_floor_px": {
+      "value": 1.0,
+      "note": "Sub-pixel and 1px spacing differences are below reliable perception on standard displays, but still break grid rhythm. Graded as info unless they compound."
+    },
+    "spacing_perceptible_px": {
+      "value": 2.0,
+      "note": "Where a spacing difference starts to be visible in a repeated element (a list, a button row), because the error is multiplied by repetition."
+    },
+    "type_size_ratio_notable": {
+      "value": 0.06,
+      "note": "6% size difference. Below this, type size drift is invisible in isolation; above, the hierarchy step reads as wrong."
+    },
+    "weight_step": {
+      "value": 100,
+      "note": "One weight step. A single step (600 -> 500) is often invisible on screen at small sizes but flattens hierarchy at display sizes."
+    },
+    "leading_floor": {
+      "value": 1.4,
+      "note": "Body copy below 1.4 line-height measurably slows reading and increases line-tracking errors."
+    },
+    "measure_min_ch": {
+      "value": 45
+    },
+    "measure_max_ch": {
+      "value": 75
+    }
+  },
+  "laws": {
+    "lux-aesthetic-usability": {
+      "name": "Aesthetic-Usability Effect",
+      "statement": "Users perceive aesthetically pleasing design as more usable, and are more tolerant of minor usability problems in it.",
+      "audit_use": "Visual drift is not cosmetic: degraded finish lowers perceived usability and reduces the goodwill that covers real friction elsewhere. Justifies grading accumulated minor drift as a compound issue.",
+      "channels": [
+        "color",
+        "geometry",
+        "typography"
+      ]
+    },
+    "lux-choice-overload": {
+      "name": "Choice Overload",
+      "statement": "Too many options increases the cognitive effort of deciding.",
+      "audit_use": "Applies when implementation adds visual variants the design system does not define (e.g. a fourth button colour), expanding the option space.",
+      "channels": [
+        "color"
+      ]
+    },
+    "lux-chunking": {
+      "name": "Chunking",
+      "statement": "Grouping content into discrete units makes it easier to process and remember.",
+      "audit_use": "Spacing tokens are how chunks are drawn. Wrong gap or row padding dissolves the chunk boundary.",
+      "channels": [
+        "geometry"
+      ]
+    },
+    "lux-cognitive-bias": {
+      "name": "Cognitive Bias",
+      "statement": "Systematic deviations from rational judgement affect how users read an interface.",
+      "audit_use": "Colour semantics carry bias: a danger-coloured element that is not destructive misleads before the label is read.",
+      "channels": [
+        "color"
+      ]
+    },
+    "lux-cognitive-load": {
+      "name": "Cognitive Load",
+      "statement": "Total mental effort required to use an interface; exceeding capacity degrades performance.",
+      "audit_use": "Inconsistent spacing and type across instances of the same component forces re-parsing on every encounter.",
+      "channels": [
+        "geometry",
+        "typography",
+        "color"
+      ]
+    },
+    "lux-doherty": {
+      "name": "Doherty Threshold",
+      "statement": "Productivity soars when system response is under 400ms.",
+      "audit_use": "Applies to transition/animation duration drift, and to focus-state feedback that is missing or delayed.",
+      "channels": [
+        "effect"
+      ]
+    },
+    "lux-fitts": {
+      "name": "Fitts's Law",
+      "statement": "Time to acquire a target is a function of distance to and size of the target.",
+      "audit_use": "Directly governs interactive element height, padding and hit area. Any shrink on a button, input or link is a measurable interaction cost, not a visual preference.",
+      "channels": [
+        "geometry"
+      ],
+      "hard_thresholds": {
+        "target_min_px": 24,
+        "target_comfortable_px": 44
+      }
+    },
+    "lux-flow": {
+      "name": "Flow",
+      "statement": "A focused mental state of full immersion, broken by friction and interruption.",
+      "audit_use": "Missing or inconsistent focus states break keyboard flow mid-task.",
+      "channels": [
+        "effect",
+        "color"
+      ]
+    },
+    "lux-goal-gradient": {
+      "name": "Goal-Gradient Effect",
+      "statement": "Motivation increases as one approaches a goal.",
+      "audit_use": "Applies to progress indicators and to the terminal action of a flow — the primary submit button is the highest-stakes element to get wrong.",
+      "channels": [
+        "color",
+        "geometry"
+      ]
+    },
+    "lux-hicks": {
+      "name": "Hick's Law",
+      "statement": "Decision time increases with the number and complexity of choices.",
+      "audit_use": "When implementation makes a secondary action look primary, the user faces two same-weight choices instead of one clear one.",
+      "channels": [
+        "color",
+        "typography"
+      ]
+    },
+    "lux-jakobs": {
+      "name": "Jakob's Law",
+      "statement": "Users spend most of their time on other sites, and prefer yours to work the same way.",
+      "audit_use": "Conventional patterns (blue links, visible focus rings, standard field heights) are load-bearing. Deviating from the design spec often means deviating from the convention the spec encoded.",
+      "channels": [
+        "color",
+        "geometry",
+        "typography"
+      ]
+    },
+    "lux-common-region": {
+      "name": "Law of Common Region",
+      "statement": "Elements sharing a clearly bounded area are perceived as a group.",
+      "audit_use": "Card padding, border and radius draw the region. Losing the border or collapsing the padding merges two groups into one.",
+      "channels": [
+        "geometry",
+        "color"
+      ]
+    },
+    "lux-proximity": {
+      "name": "Law of Proximity",
+      "statement": "Objects near each other are perceived as related.",
+      "audit_use": "The ratio between inner spacing and outer spacing is what assigns a label to its field. When implementation shrinks the gap, the relationship silently reassigns.",
+      "channels": [
+        "geometry"
+      ],
+      "hard_thresholds": {
+        "grouping_ratio_min": 1.5
+      }
+    },
+    "lux-pragnanz": {
+      "name": "Law of Prägnanz",
+      "statement": "People interpret ambiguous images in the simplest form possible.",
+      "audit_use": "Radius drift across sibling components makes a set of shapes read as unrelated rather than as one family.",
+      "channels": [
+        "geometry"
+      ]
+    },
+    "lux-similarity": {
+      "name": "Law of Similarity",
+      "statement": "Elements that look similar are perceived as related.",
+      "audit_use": "The strongest argument against off-token colours: two shades of the same brand blue on one screen break the 'these belong together' signal.",
+      "channels": [
+        "color",
+        "typography"
+      ]
+    },
+    "lux-uniform-connectedness": {
+      "name": "Law of Uniform Connectedness",
+      "statement": "Visually connected elements are perceived as more related than unconnected ones.",
+      "audit_use": "The spacing grid is the connective tissue. An off-grid value breaks the rhythm every conforming component establishes.",
+      "channels": [
+        "geometry"
+      ]
+    },
+    "lux-mental-model": {
+      "name": "Mental Model",
+      "statement": "Users hold a belief about how a system works and act on it.",
+      "audit_use": "Component variants carry meaning. A ghost button styled like a primary contradicts the model the rest of the product taught.",
+      "channels": [
+        "color",
+        "typography"
+      ]
+    },
+    "lux-millers": {
+      "name": "Miller's Law",
+      "statement": "The average person can hold about seven items in working memory.",
+      "audit_use": "Bounds how many distinct visual treatments a system can carry before users stop tracking them.",
+      "channels": [
+        "color",
+        "typography"
+      ]
+    },
+    "lux-occams": {
+      "name": "Occam's Razor",
+      "statement": "Among competing designs, the one with fewest assumptions should be selected.",
+      "audit_use": "Hard-coded values that duplicate an existing token add an assumption for no benefit.",
+      "channels": [
+        "color",
+        "geometry",
+        "typography"
+      ]
+    },
+    "lux-active-user-paradox": {
+      "name": "Paradox of the Active User",
+      "statement": "Users never read the manual; they start using the software immediately.",
+      "audit_use": "Help and error text must survive on visual weight alone. Under-contrast help text is effectively absent.",
+      "channels": [
+        "color",
+        "typography"
+      ]
+    },
+    "lux-pareto": {
+      "name": "Pareto Principle",
+      "statement": "Roughly 80% of effects come from 20% of causes.",
+      "audit_use": "Used to rank remediation: a token-layer fix usually clears a long tail of individual findings.",
+      "channels": [
+        "color",
+        "geometry",
+        "typography"
+      ]
+    },
+    "lux-parkinsons": {
+      "name": "Parkinson's Law",
+      "statement": "Work expands to fill the time available.",
+      "audit_use": "Argues for constraining the audit surface: an unranked list of hundreds of diffs consumes any budget given to it.",
+      "channels": [
+        "meta"
+      ]
+    },
+    "lux-peak-end": {
+      "name": "Peak-End Rule",
+      "statement": "People judge an experience by its peak and its end, not the average.",
+      "audit_use": "Defects on the final confirm step and on error states are weighted above equivalent defects mid-flow.",
+      "channels": [
+        "color",
+        "geometry",
+        "typography"
+      ]
+    },
+    "lux-postels": {
+      "name": "Postel's Law",
+      "statement": "Be liberal in what you accept, conservative in what you send.",
+      "audit_use": "Applies to the audit tool itself: accept messy real-world CSS, emit strict verified findings.",
+      "channels": [
+        "meta"
+      ]
+    },
+    "lux-selective-attention": {
+      "name": "Selective Attention",
+      "statement": "People filter out information not relevant to their current goal.",
+      "audit_use": "Colour and weight are the two channels that survive filtering. Drift in them is disproportionately costly.",
+      "channels": [
+        "color",
+        "typography"
+      ]
+    },
+    "lux-serial-position": {
+      "name": "Serial Position Effect",
+      "statement": "Users best remember the first and last items in a series.",
+      "audit_use": "First and last rows/actions in a group are weighted higher when identical drift appears across a set.",
+      "channels": [
+        "geometry"
+      ]
+    },
+    "lux-teslers": {
+      "name": "Tesler's Law",
+      "statement": "Every system has an irreducible complexity that must live somewhere.",
+      "audit_use": "Conservation of complexity: an ambiguous token mapping is either resolved in the tool or dumped on the reviewer.",
+      "channels": [
+        "meta"
+      ]
+    },
+    "lux-von-restorff": {
+      "name": "Von Restorff Effect",
+      "statement": "The item that differs most is the one remembered.",
+      "audit_use": "Cuts both ways — the primary action should be the isolated element. Drift that raises a secondary element's prominence steals that isolation.",
+      "channels": [
+        "color",
+        "typography"
+      ]
+    },
+    "lux-working-memory": {
+      "name": "Working Memory",
+      "statement": "Short-term storage is limited in capacity and duration.",
+      "audit_use": "Error text separated from its field by wrong margins forces the user to hold the message while looking elsewhere.",
+      "channels": [
+        "geometry"
+      ]
+    },
+    "lux-zeigarnik": {
+      "name": "Zeigarnik Effect",
+      "statement": "People remember uncompleted tasks better than completed ones.",
+      "audit_use": "Applies to partially applied design updates: half-migrated components are the ones users notice.",
+      "channels": [
+        "meta"
+      ]
+    }
+  },
+  "heuristics": {
+    "nn-1": {
+      "name": "Visibility of system status",
+      "audit_use": "Focus, hover, loading and error states are status. A missing focus outline is a status failure, not a style nit."
+    },
+    "nn-2": {
+      "name": "Match between system and the real world",
+      "audit_use": "Semantic colour roles (danger, success) must map to their real meaning."
+    },
+    "nn-3": {
+      "name": "User control and freedom",
+      "audit_use": "Secondary/cancel actions must remain reachable and legible."
+    },
+    "nn-4": {
+      "name": "Consistency and standards",
+      "audit_use": "The heuristic this whole tool exists to enforce. Every off-token value is a consistency violation."
+    },
+    "nn-5": {
+      "name": "Error prevention",
+      "audit_use": "Under-sized targets and low-contrast disabled states cause input errors."
+    },
+    "nn-6": {
+      "name": "Recognition rather than recall",
+      "audit_use": "Component variants must be recognisable at a glance from their visual treatment."
+    },
+    "nn-7": {
+      "name": "Flexibility and efficiency of use",
+      "audit_use": "Keyboard focus visibility is the efficiency path for power users."
+    },
+    "nn-8": {
+      "name": "Aesthetic and minimalist design",
+      "audit_use": "Unspecified decoration added in code is noise the design chose not to have."
+    },
+    "nn-9": {
+      "name": "Help users recognize, diagnose and recover from errors",
+      "audit_use": "Error text colour, size and weight must survive scanning."
+    },
+    "nn-10": {
+      "name": "Help and documentation",
+      "audit_use": "Help text below the legibility floor fails the criterion it exists to serve."
+    }
+  },
+  "wcag": {
+    "wcag-1.4.3": {
+      "name": "Contrast (Minimum)",
+      "level": "AA",
+      "rule": "4.5:1 for normal text, 3:1 for large text (>=24px, or >=18.66px at weight>=700)."
+    },
+    "wcag-1.4.6": {
+      "name": "Contrast (Enhanced)",
+      "level": "AAA",
+      "rule": "7:1 normal, 4.5:1 large."
+    },
+    "wcag-1.4.11": {
+      "name": "Non-text Contrast",
+      "level": "AA",
+      "rule": "3:1 for UI component boundaries and state indicators, including focus rings and input borders."
+    },
+    "wcag-2.4.7": {
+      "name": "Focus Visible",
+      "level": "AA",
+      "rule": "Keyboard focus indicator must be visible."
+    },
+    "wcag-2.5.8": {
+      "name": "Target Size (Minimum)",
+      "level": "AA",
+      "rule": "24x24 CSS px minimum for pointer targets."
+    }
+  },
+  "severity_policy": {
+    "note": "Severity is derived, never guessed. The diagnostician must select exactly one band and cite the clause id it matched. The verifier recomputes the band from the measurement and overrides the agent if they disagree.",
+    "bands": {
+      "blocker": "Fails a WCAG AA success criterion, or removes a state the user needs to operate the interface (focus ring), or drops an interactive target below 24px.",
+      "major": "Visible to an ordinary user and changes meaning or hierarchy: deltaE >= 3.0, spacing delta >= 4px on an interactive or grouping edge, font-size ratio >= 12%, weight delta >= 200, or a proximity ratio inversion.",
+      "minor": "Perceptible on close inspection but does not change meaning: deltaE 1.0-3.0, spacing delta 2-4px, font-size ratio 6-12%, one weight step.",
+      "info": "Below perception but off-spec: deltaE < 1.0, spacing delta < 2px (whether or not the value also lands off-grid -- grid conformance is reported separately), hard-coded literals that are not the token they sit next to."
+    }
+  },
+  "clauses": [
+    {
+      "id": "c-contrast-fail",
+      "when": "channel=color AND role carries text AND wcag_level=fail",
+      "severity": "blocker",
+      "laws": [
+        "lux-active-user-paradox",
+        "lux-selective-attention"
+      ],
+      "heuristics": [
+        "nn-9",
+        "nn-10"
+      ],
+      "wcag": [
+        "wcag-1.4.3"
+      ]
+    },
+    {
+      "id": "c-nontext-contrast-fail",
+      "when": "channel=color AND prop in (border-color, outline-color) AND ratio < 3.0",
+      "severity": "blocker",
+      "laws": [
+        "lux-flow"
+      ],
+      "heuristics": [
+        "nn-1"
+      ],
+      "wcag": [
+        "wcag-1.4.11"
+      ]
+    },
+    {
+      "id": "c-focus-removed",
+      "when": "state=focus AND outline-width dropped to 0 or state absent in code",
+      "severity": "blocker",
+      "laws": [
+        "lux-flow",
+        "lux-jakobs"
+      ],
+      "heuristics": [
+        "nn-1",
+        "nn-7"
+      ],
+      "wcag": [
+        "wcag-2.4.7"
+      ]
+    },
+    {
+      "id": "c-target-below-min",
+      "when": "role is interactive AND min-height < 24",
+      "severity": "blocker",
+      "laws": [
+        "lux-fitts"
+      ],
+      "heuristics": [
+        "nn-5"
+      ],
+      "wcag": [
+        "wcag-2.5.8"
+      ]
+    },
+    {
+      "id": "c-target-shrunk",
+      "when": "role is interactive AND min-height reduced below 44 or by >= 4px",
+      "severity": "major",
+      "laws": [
+        "lux-fitts",
+        "lux-goal-gradient"
+      ],
+      "heuristics": [
+        "nn-5"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-color-brand-break",
+      "when": "channel=color AND deltaE >= 5.0",
+      "severity": "major",
+      "laws": [
+        "lux-similarity",
+        "lux-mental-model",
+        "lux-von-restorff"
+      ],
+      "heuristics": [
+        "nn-4",
+        "nn-6"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-color-obvious",
+      "when": "channel=color AND 3.0 <= deltaE < 5.0",
+      "severity": "major",
+      "laws": [
+        "lux-similarity",
+        "lux-selective-attention"
+      ],
+      "heuristics": [
+        "nn-4"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-color-subtle",
+      "when": "channel=color AND 1.0 <= deltaE < 3.0",
+      "severity": "minor",
+      "laws": [
+        "lux-similarity",
+        "lux-aesthetic-usability"
+      ],
+      "heuristics": [
+        "nn-4"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-color-offtoken",
+      "when": "channel=color AND deltaE < 1.0 AND value is not a token reference",
+      "severity": "info",
+      "laws": [
+        "lux-occams",
+        "lux-zeigarnik"
+      ],
+      "heuristics": [
+        "nn-4"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-space-major",
+      "when": "channel=geometry AND abs(delta) >= 4 AND edge is grouping or interactive",
+      "severity": "major",
+      "laws": [
+        "lux-proximity",
+        "lux-chunking",
+        "lux-common-region"
+      ],
+      "heuristics": [
+        "nn-4"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-space-minor",
+      "when": "channel=geometry AND 2 <= abs(delta) < 4",
+      "severity": "minor",
+      "laws": [
+        "lux-uniform-connectedness",
+        "lux-aesthetic-usability"
+      ],
+      "heuristics": [
+        "nn-4"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-space-subpixel",
+      "when": "channel=geometry AND abs(delta) < 2",
+      "severity": "info",
+      "laws": [
+        "lux-uniform-connectedness"
+      ],
+      "heuristics": [
+        "nn-4"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-offgrid",
+      "when": "the derived grid-conformance row for a component reports one or more spacing values off the base grid. Individual property findings are graded by magnitude only, so a deviation is never banded twice",
+      "severity": "minor",
+      "laws": [
+        "lux-uniform-connectedness",
+        "lux-pragnanz"
+      ],
+      "heuristics": [
+        "nn-4"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-proximity-inversion",
+      "when": "inner spacing >= outer spacing for a label/field pair",
+      "severity": "major",
+      "laws": [
+        "lux-proximity",
+        "lux-working-memory"
+      ],
+      "heuristics": [
+        "nn-6"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-type-size-major",
+      "when": "channel=typography AND prop=font-size AND ratio_delta >= 0.12",
+      "severity": "major",
+      "laws": [
+        "lux-hicks",
+        "lux-von-restorff",
+        "lux-cognitive-load"
+      ],
+      "heuristics": [
+        "nn-4"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-type-size-minor",
+      "when": "channel=typography AND prop=font-size AND 0.06 <= ratio_delta < 0.12",
+      "severity": "minor",
+      "laws": [
+        "lux-aesthetic-usability"
+      ],
+      "heuristics": [
+        "nn-4"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-weight-flatten",
+      "when": "channel=typography AND prop=font-weight AND abs(delta) >= 200",
+      "severity": "major",
+      "laws": [
+        "lux-von-restorff",
+        "lux-selective-attention",
+        "lux-hicks"
+      ],
+      "heuristics": [
+        "nn-6"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-weight-step",
+      "when": "channel=typography AND prop=font-weight AND abs(delta) = 100",
+      "severity": "minor",
+      "laws": [
+        "lux-similarity"
+      ],
+      "heuristics": [
+        "nn-4"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-leading-floor",
+      "when": "channel=typography AND resolved line-height < 1.4 on body copy",
+      "severity": "major",
+      "laws": [
+        "lux-cognitive-load",
+        "lux-active-user-paradox"
+      ],
+      "heuristics": [
+        "nn-10"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-family-fallback",
+      "when": "channel=typography AND first font family differs from spec",
+      "severity": "major",
+      "laws": [
+        "lux-jakobs",
+        "lux-similarity"
+      ],
+      "heuristics": [
+        "nn-4"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-radius-family",
+      "when": "channel=geometry AND prop=border-radius AND delta != 0",
+      "severity": "minor",
+      "laws": [
+        "lux-pragnanz",
+        "lux-similarity"
+      ],
+      "heuristics": [
+        "nn-4"
+      ],
+      "wcag": []
+    },
+    {
+      "id": "c-unspecified-decoration",
+      "when": "code declares a visual property the spec does not define",
+      "severity": "info",
+      "laws": [
+        "lux-occams"
+      ],
+      "heuristics": [
+        "nn-8"
+      ],
+      "wcag": []
+    }
+  ],
+  "weighting_modifiers": {
+    "note": "Applied after the band is chosen. They move priority, never severity, so that the severity stays traceable to a single clause.",
+    "terminal_action": {
+      "factor": 1.4,
+      "law": "lux-peak-end",
+      "applies_when": "component is the final submit action of a flow"
+    },
+    "error_state": {
+      "factor": 1.3,
+      "law": "lux-peak-end",
+      "applies_when": "component role is alert or error text"
+    },
+    "repeated_element": {
+      "factor": 1.25,
+      "law": "lux-serial-position",
+      "applies_when": "component appears more than three times on a screen"
+    },
+    "token_layer_fix": {
+      "factor": 1.5,
+      "law": "lux-pareto",
+      "applies_when": "one token change clears three or more findings"
+    }
+  }
+}

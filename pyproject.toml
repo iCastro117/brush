@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "brush"
+version = "1.0.0"
+description = "Audit a frontend implementation against its design specification, with every finding traced to a measurement."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+keywords = ["design-systems", "accessibility", "wcag", "agents", "conformance"]
+
+# The runtime deliberately has no third-party dependencies: the CSS cascade
+# resolver, the colour maths and the agent loop are all stdlib. That is what
+# makes a clean-environment reproduction a single `pip install -e .`.
+dependencies = []
+
+[project.optional-dependencies]
+live = ["anthropic>=0.40"]
+# Spreadsheet review (`brush batch` / `brush template`) is the only part of the
+# tool that needs a third-party package. The audit engine itself does not.
+sheets = ["openpyxl>=3.1"]
+all = ["anthropic>=0.40", "openpyxl>=3.1"]
+
+[project.scripts]
+brush = "brush.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+brush = ["knowledge/*.json"]

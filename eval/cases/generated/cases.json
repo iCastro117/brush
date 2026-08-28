@@ -1,0 +1,1511 @@
+{
+  "seed": 20260828,
+  "n_cases": 12,
+  "cases": [
+    {
+      "case_id": "case_00",
+      "label": "clean control \u2014 a correct detector reports nothing here",
+      "css_path": "eval/cases/generated\\case_00.css",
+      "mutations": [],
+      "ground_truth": []
+    },
+    {
+      "case_id": "case_01",
+      "label": "everything at once \u2014 the hard case",
+      "css_path": "eval/cases/generated\\case_01.css",
+      "mutations": [
+        {
+          "mutation_id": "M01",
+          "kind": "space_nudge",
+          "component": "Button/Primary",
+          "css_rule": ".btn--primary",
+          "prop": "padding",
+          "original": "12px 24px",
+          "mutated": "12px 20px",
+          "expected_band": "major",
+          "expected_props": [
+            "padding-right",
+            "padding-left"
+          ],
+          "narrative": "Someone eyeballed the button in a browser and shaved the sides to fit a longer label."
+        },
+        {
+          "mutation_id": "M02",
+          "kind": "space_offgrid",
+          "component": "Card/Summary",
+          "css_rule": ".summary",
+          "prop": "padding",
+          "original": "var(--space-6)",
+          "mutated": "22px",
+          "expected_band": "minor",
+          "expected_props": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left",
+            "-derived-grid-conformance"
+          ],
+          "narrative": "Token replaced by a literal during a merge conflict; 22px is off the 4px grid entirely."
+        },
+        {
+          "mutation_id": "M03",
+          "kind": "color_near",
+          "component": "Button/Primary",
+          "css_rule": ".btn--primary",
+          "prop": "background-color",
+          "original": "var(--brand-600)",
+          "mutated": "#2070EC",
+          "expected_band": "info",
+          "expected_props": [
+            "background-color"
+          ],
+          "narrative": "Brand blue pasted from a screenshot colour-picker. Visually identical, but no longer a token."
+        },
+        {
+          "mutation_id": "M04",
+          "kind": "color_drift",
+          "component": "Badge/Success",
+          "css_rule": ".badge--success",
+          "prop": "color",
+          "original": "var(--success-600)",
+          "mutated": "#2E9E63",
+          "expected_band": "blocker",
+          "expected_props": [
+            "color"
+          ],
+          "narrative": "Success green lightened 'to look friendlier'. It also crosses the AA line, which is precisely what nobody notices by eye."
+        },
+        {
+          "mutation_id": "M05",
+          "kind": "color_contrast",
+          "component": "Input/HelpText",
+          "css_rule": ".field__help",
+          "prop": "color",
+          "original": "var(--ink-500)",
+          "mutated": "#A8AEB8",
+          "expected_band": "blocker",
+          "expected_props": [
+            "color"
+          ],
+          "narrative": "Help text greyed down for visual calm. Drops to 2.3:1 and fails WCAG AA."
+        },
+        {
+          "mutation_id": "M06",
+          "kind": "type_size",
+          "component": "Card/Title",
+          "css_rule": ".summary__title",
+          "prop": "font-size",
+          "original": "24px",
+          "mutated": "21px",
+          "expected_band": "major",
+          "expected_props": [
+            "font-size"
+          ],
+          "narrative": "Heading nudged down to stop a two-line wrap on a narrow viewport."
+        },
+        {
+          "mutation_id": "M07",
+          "kind": "weight_flatten",
+          "component": "Button/Primary",
+          "css_rule": ".btn",
+          "prop": "font-weight",
+          "original": "600",
+          "mutated": "400",
+          "expected_band": "major",
+          "expected_props": [
+            "font-weight"
+          ],
+          "narrative": "Weight reset when the base .btn rule was rewritten; the variant never re-declared it."
+        },
+        {
+          "mutation_id": "M08",
+          "kind": "family_fallback",
+          "component": "Input/Text",
+          "css_rule": ".field__input",
+          "prop": "font-family",
+          "original": "var(--font-sans)",
+          "mutated": "Helvetica, Arial, sans-serif",
+          "expected_band": "major",
+          "expected_props": [
+            "font-family"
+          ],
+          "narrative": "Field styled in isolation by a contractor who did not know the token existed."
+        },
+        {
+          "mutation_id": "M09",
+          "kind": "leading_crush",
+          "component": "List/Row",
+          "css_rule": ".summary__row",
+          "prop": "line-height",
+          "original": "1.5",
+          "mutated": "1.2",
+          "expected_band": "major",
+          "expected_props": [
+            "line-height"
+          ],
+          "narrative": "Leading tightened to fit more rows above the fold."
+        },
+        {
+          "mutation_id": "M10",
+          "kind": "radius_drift",
+          "component": "Input/Text",
+          "css_rule": ".field__input",
+          "prop": "border-radius",
+          "original": "var(--radius-md)",
+          "mutated": "4px",
+          "expected_band": "minor",
+          "expected_props": [
+            "border-radius"
+          ],
+          "narrative": "Wrong radius token picked from autocomplete; sm instead of md."
+        },
+        {
+          "mutation_id": "M11",
+          "kind": "focus_removed",
+          "component": "Button/Primary",
+          "css_rule": ".btn--primary:focus-visible",
+          "prop": "__RULE__",
+          "original": "outline: 2px solid var(--brand-600);",
+          "mutated": "(rule deleted)",
+          "expected_band": "blocker",
+          "expected_props": [
+            "outline-width",
+            "outline-style"
+          ],
+          "narrative": "Focus ring deleted to silence a designer's 'ugly blue box' complaint."
+        },
+        {
+          "mutation_id": "M12",
+          "kind": "target_shrink",
+          "component": "Button/Ghost",
+          "css_rule": ".btn--ghost",
+          "prop": "min-height",
+          "original": "44px",
+          "mutated": "28px",
+          "expected_band": "major",
+          "expected_props": [
+            "min-height",
+            "-derived-target-height"
+          ],
+          "narrative": "Ghost button compacted for a dense toolbar. Still above the WCAG floor, but hard to hit."
+        },
+        {
+          "mutation_id": "M14",
+          "kind": "proximity_collapse",
+          "component": "Input/Label",
+          "css_rule": ".field__label",
+          "prop": "margin-bottom",
+          "original": "var(--space-2)",
+          "mutated": "2px",
+          "expected_band": "major",
+          "expected_props": [
+            "margin-bottom"
+          ],
+          "narrative": "Label pulled tight against its field, collapsing the grouping the spec relies on."
+        },
+        {
+          "mutation_id": "M15",
+          "kind": "border_contrast",
+          "component": "Input/Text",
+          "css_rule": ".field__input",
+          "prop": "border",
+          "original": "1px solid var(--ink-300)",
+          "mutated": "1px solid #E8EAEE",
+          "expected_band": "blocker",
+          "expected_props": [
+            "border-color"
+          ],
+          "narrative": "Field border lightened for a cleaner look. Boundary drops under the 3:1 non-text minimum."
+        },
+        {
+          "mutation_id": "M16",
+          "kind": "space_subpixel",
+          "component": "Alert/Danger",
+          "css_rule": ".alert--danger",
+          "prop": "padding",
+          "original": "16px",
+          "mutated": "15px",
+          "expected_band": "info",
+          "expected_props": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ],
+          "narrative": "A 1px trim that no one will see but which breaks grid rhythm across the page."
+        },
+        {
+          "mutation_id": "M17",
+          "kind": "letter_spacing",
+          "component": "Card/Title",
+          "css_rule": ".summary__title",
+          "prop": "letter-spacing",
+          "original": "-0.4px",
+          "mutated": "0px",
+          "expected_band": "info",
+          "expected_props": [
+            "letter-spacing"
+          ],
+          "narrative": "Optical tracking dropped when the heading style was copied from a generic template."
+        },
+        {
+          "mutation_id": "M18",
+          "kind": "color_semantic_swap",
+          "component": "Alert/Danger",
+          "css_rule": ".alert--danger",
+          "prop": "background-color",
+          "original": "var(--danger-050)",
+          "mutated": "#FFF8E1",
+          "expected_band": "major",
+          "expected_props": [
+            "background-color"
+          ],
+          "narrative": "Danger alert given a warning-amber background; the semantic role no longer matches the colour."
+        }
+      ],
+      "ground_truth": [
+        {
+          "component": "Button/Primary",
+          "prop": "padding-right",
+          "expected_band": "major",
+          "mutation_id": "M01",
+          "kind": "space_nudge"
+        },
+        {
+          "component": "Button/Primary",
+          "prop": "padding-left",
+          "expected_band": "major",
+          "mutation_id": "M01",
+          "kind": "space_nudge"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "padding-top",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "padding-right",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "padding-bottom",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "padding-left",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "-derived-grid-conformance",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Button/Primary",
+          "prop": "background-color",
+          "expected_band": "info",
+          "mutation_id": "M03",
+          "kind": "color_near"
+        },
+        {
+          "component": "Badge/Success",
+          "prop": "color",
+          "expected_band": "blocker",
+          "mutation_id": "M04",
+          "kind": "color_drift"
+        },
+        {
+          "component": "Input/HelpText",
+          "prop": "color",
+          "expected_band": "blocker",
+          "mutation_id": "M05",
+          "kind": "color_contrast"
+        },
+        {
+          "component": "Card/Title",
+          "prop": "font-size",
+          "expected_band": "major",
+          "mutation_id": "M06",
+          "kind": "type_size"
+        },
+        {
+          "component": "Button/Primary",
+          "prop": "font-weight",
+          "expected_band": "major",
+          "mutation_id": "M07",
+          "kind": "weight_flatten"
+        },
+        {
+          "component": "Input/Text",
+          "prop": "font-family",
+          "expected_band": "major",
+          "mutation_id": "M08",
+          "kind": "family_fallback"
+        },
+        {
+          "component": "List/Row",
+          "prop": "line-height",
+          "expected_band": "major",
+          "mutation_id": "M09",
+          "kind": "leading_crush"
+        },
+        {
+          "component": "Input/Text",
+          "prop": "border-radius",
+          "expected_band": "minor",
+          "mutation_id": "M10",
+          "kind": "radius_drift"
+        },
+        {
+          "component": "Button/Primary",
+          "prop": "outline-width",
+          "expected_band": "blocker",
+          "mutation_id": "M11",
+          "kind": "focus_removed"
+        },
+        {
+          "component": "Button/Primary",
+          "prop": "outline-style",
+          "expected_band": "blocker",
+          "mutation_id": "M11",
+          "kind": "focus_removed"
+        },
+        {
+          "component": "Button/Ghost",
+          "prop": "min-height",
+          "expected_band": "major",
+          "mutation_id": "M12",
+          "kind": "target_shrink"
+        },
+        {
+          "component": "Button/Ghost",
+          "prop": "-derived-target-height",
+          "expected_band": "major",
+          "mutation_id": "M12",
+          "kind": "target_shrink"
+        },
+        {
+          "component": "Input/Label",
+          "prop": "margin-bottom",
+          "expected_band": "major",
+          "mutation_id": "M14",
+          "kind": "proximity_collapse"
+        },
+        {
+          "component": "Input/Text",
+          "prop": "border-color",
+          "expected_band": "blocker",
+          "mutation_id": "M15",
+          "kind": "border_contrast"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-top",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-right",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-bottom",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-left",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Card/Title",
+          "prop": "letter-spacing",
+          "expected_band": "info",
+          "mutation_id": "M17",
+          "kind": "letter_spacing"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "background-color",
+          "expected_band": "major",
+          "mutation_id": "M18",
+          "kind": "color_semantic_swap"
+        }
+      ]
+    },
+    {
+      "case_id": "case_02",
+      "label": "3 defects: letter_spacing, space_offgrid, type_size",
+      "css_path": "eval/cases/generated\\case_02.css",
+      "mutations": [
+        {
+          "mutation_id": "M02",
+          "kind": "space_offgrid",
+          "component": "Card/Summary",
+          "css_rule": ".summary",
+          "prop": "padding",
+          "original": "var(--space-6)",
+          "mutated": "22px",
+          "expected_band": "minor",
+          "expected_props": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left",
+            "-derived-grid-conformance"
+          ],
+          "narrative": "Token replaced by a literal during a merge conflict; 22px is off the 4px grid entirely."
+        },
+        {
+          "mutation_id": "M17",
+          "kind": "letter_spacing",
+          "component": "Card/Title",
+          "css_rule": ".summary__title",
+          "prop": "letter-spacing",
+          "original": "-0.4px",
+          "mutated": "0px",
+          "expected_band": "info",
+          "expected_props": [
+            "letter-spacing"
+          ],
+          "narrative": "Optical tracking dropped when the heading style was copied from a generic template."
+        },
+        {
+          "mutation_id": "M06",
+          "kind": "type_size",
+          "component": "Card/Title",
+          "css_rule": ".summary__title",
+          "prop": "font-size",
+          "original": "24px",
+          "mutated": "21px",
+          "expected_band": "major",
+          "expected_props": [
+            "font-size"
+          ],
+          "narrative": "Heading nudged down to stop a two-line wrap on a narrow viewport."
+        }
+      ],
+      "ground_truth": [
+        {
+          "component": "Card/Summary",
+          "prop": "padding-top",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "padding-right",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "padding-bottom",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "padding-left",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "-derived-grid-conformance",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Title",
+          "prop": "letter-spacing",
+          "expected_band": "info",
+          "mutation_id": "M17",
+          "kind": "letter_spacing"
+        },
+        {
+          "component": "Card/Title",
+          "prop": "font-size",
+          "expected_band": "major",
+          "mutation_id": "M06",
+          "kind": "type_size"
+        }
+      ]
+    },
+    {
+      "case_id": "case_03",
+      "label": "4 defects: family_fallback, leading_crush, radius_drift, space_subpixel",
+      "css_path": "eval/cases/generated\\case_03.css",
+      "mutations": [
+        {
+          "mutation_id": "M16",
+          "kind": "space_subpixel",
+          "component": "Alert/Danger",
+          "css_rule": ".alert--danger",
+          "prop": "padding",
+          "original": "16px",
+          "mutated": "15px",
+          "expected_band": "info",
+          "expected_props": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ],
+          "narrative": "A 1px trim that no one will see but which breaks grid rhythm across the page."
+        },
+        {
+          "mutation_id": "M08",
+          "kind": "family_fallback",
+          "component": "Input/Text",
+          "css_rule": ".field__input",
+          "prop": "font-family",
+          "original": "var(--font-sans)",
+          "mutated": "Helvetica, Arial, sans-serif",
+          "expected_band": "major",
+          "expected_props": [
+            "font-family"
+          ],
+          "narrative": "Field styled in isolation by a contractor who did not know the token existed."
+        },
+        {
+          "mutation_id": "M09",
+          "kind": "leading_crush",
+          "component": "List/Row",
+          "css_rule": ".summary__row",
+          "prop": "line-height",
+          "original": "1.5",
+          "mutated": "1.2",
+          "expected_band": "major",
+          "expected_props": [
+            "line-height"
+          ],
+          "narrative": "Leading tightened to fit more rows above the fold."
+        },
+        {
+          "mutation_id": "M10",
+          "kind": "radius_drift",
+          "component": "Input/Text",
+          "css_rule": ".field__input",
+          "prop": "border-radius",
+          "original": "var(--radius-md)",
+          "mutated": "4px",
+          "expected_band": "minor",
+          "expected_props": [
+            "border-radius"
+          ],
+          "narrative": "Wrong radius token picked from autocomplete; sm instead of md."
+        }
+      ],
+      "ground_truth": [
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-top",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-right",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-bottom",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-left",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Input/Text",
+          "prop": "font-family",
+          "expected_band": "major",
+          "mutation_id": "M08",
+          "kind": "family_fallback"
+        },
+        {
+          "component": "List/Row",
+          "prop": "line-height",
+          "expected_band": "major",
+          "mutation_id": "M09",
+          "kind": "leading_crush"
+        },
+        {
+          "component": "Input/Text",
+          "prop": "border-radius",
+          "expected_band": "minor",
+          "mutation_id": "M10",
+          "kind": "radius_drift"
+        }
+      ]
+    },
+    {
+      "case_id": "case_04",
+      "label": "2 defects: border_contrast, color_contrast",
+      "css_path": "eval/cases/generated\\case_04.css",
+      "mutations": [
+        {
+          "mutation_id": "M05",
+          "kind": "color_contrast",
+          "component": "Input/HelpText",
+          "css_rule": ".field__help",
+          "prop": "color",
+          "original": "var(--ink-500)",
+          "mutated": "#A8AEB8",
+          "expected_band": "blocker",
+          "expected_props": [
+            "color"
+          ],
+          "narrative": "Help text greyed down for visual calm. Drops to 2.3:1 and fails WCAG AA."
+        },
+        {
+          "mutation_id": "M15",
+          "kind": "border_contrast",
+          "component": "Input/Text",
+          "css_rule": ".field__input",
+          "prop": "border",
+          "original": "1px solid var(--ink-300)",
+          "mutated": "1px solid #E8EAEE",
+          "expected_band": "blocker",
+          "expected_props": [
+            "border-color"
+          ],
+          "narrative": "Field border lightened for a cleaner look. Boundary drops under the 3:1 non-text minimum."
+        }
+      ],
+      "ground_truth": [
+        {
+          "component": "Input/HelpText",
+          "prop": "color",
+          "expected_band": "blocker",
+          "mutation_id": "M05",
+          "kind": "color_contrast"
+        },
+        {
+          "component": "Input/Text",
+          "prop": "border-color",
+          "expected_band": "blocker",
+          "mutation_id": "M15",
+          "kind": "border_contrast"
+        }
+      ]
+    },
+    {
+      "case_id": "case_05",
+      "label": "4 defects: color_semantic_swap, proximity_inversion, space_offgrid, type_size",
+      "css_path": "eval/cases/generated\\case_05.css",
+      "mutations": [
+        {
+          "mutation_id": "M02",
+          "kind": "space_offgrid",
+          "component": "Card/Summary",
+          "css_rule": ".summary",
+          "prop": "padding",
+          "original": "var(--space-6)",
+          "mutated": "22px",
+          "expected_band": "minor",
+          "expected_props": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left",
+            "-derived-grid-conformance"
+          ],
+          "narrative": "Token replaced by a literal during a merge conflict; 22px is off the 4px grid entirely."
+        },
+        {
+          "mutation_id": "M18",
+          "kind": "color_semantic_swap",
+          "component": "Alert/Danger",
+          "css_rule": ".alert--danger",
+          "prop": "background-color",
+          "original": "var(--danger-050)",
+          "mutated": "#FFF8E1",
+          "expected_band": "major",
+          "expected_props": [
+            "background-color"
+          ],
+          "narrative": "Danger alert given a warning-amber background; the semantic role no longer matches the colour."
+        },
+        {
+          "mutation_id": "M19",
+          "kind": "proximity_inversion",
+          "component": "Input/Label",
+          "css_rule": ".field__label",
+          "prop": "margin-bottom",
+          "original": "var(--space-2)",
+          "mutated": "28px",
+          "expected_band": "major",
+          "expected_props": [
+            "margin-bottom",
+            "-derived-proximity-ratio"
+          ],
+          "narrative": "Label pushed away from its field to 'give it room'. The gap below the label now exceeds the 24px gap between fields, so the label reads as belonging to the field above it. Every individual value still looks reasonable in isolation."
+        },
+        {
+          "mutation_id": "M06",
+          "kind": "type_size",
+          "component": "Card/Title",
+          "css_rule": ".summary__title",
+          "prop": "font-size",
+          "original": "24px",
+          "mutated": "21px",
+          "expected_band": "major",
+          "expected_props": [
+            "font-size"
+          ],
+          "narrative": "Heading nudged down to stop a two-line wrap on a narrow viewport."
+        }
+      ],
+      "ground_truth": [
+        {
+          "component": "Card/Summary",
+          "prop": "padding-top",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "padding-right",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "padding-bottom",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "padding-left",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "-derived-grid-conformance",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "background-color",
+          "expected_band": "major",
+          "mutation_id": "M18",
+          "kind": "color_semantic_swap"
+        },
+        {
+          "component": "Input/Label",
+          "prop": "margin-bottom",
+          "expected_band": "major",
+          "mutation_id": "M19",
+          "kind": "proximity_inversion"
+        },
+        {
+          "component": "Input/Label",
+          "prop": "-derived-proximity-ratio",
+          "expected_band": "major",
+          "mutation_id": "M19",
+          "kind": "proximity_inversion"
+        },
+        {
+          "component": "Card/Title",
+          "prop": "font-size",
+          "expected_band": "major",
+          "mutation_id": "M06",
+          "kind": "type_size"
+        }
+      ]
+    },
+    {
+      "case_id": "case_06",
+      "label": "3 defects: color_semantic_swap, target_below_min, weight_flatten",
+      "css_path": "eval/cases/generated\\case_06.css",
+      "mutations": [
+        {
+          "mutation_id": "M13",
+          "kind": "target_below_min",
+          "component": "Button/Ghost",
+          "css_rule": ".btn--ghost",
+          "prop": "min-height",
+          "original": "44px",
+          "mutated": "20px",
+          "expected_band": "blocker",
+          "expected_props": [
+            "min-height",
+            "-derived-target-height"
+          ],
+          "narrative": "Same compaction taken one step further; now under the 24px WCAG 2.5.8 minimum."
+        },
+        {
+          "mutation_id": "M07",
+          "kind": "weight_flatten",
+          "component": "Button/Primary",
+          "css_rule": ".btn",
+          "prop": "font-weight",
+          "original": "600",
+          "mutated": "400",
+          "expected_band": "major",
+          "expected_props": [
+            "font-weight"
+          ],
+          "narrative": "Weight reset when the base .btn rule was rewritten; the variant never re-declared it."
+        },
+        {
+          "mutation_id": "M18",
+          "kind": "color_semantic_swap",
+          "component": "Alert/Danger",
+          "css_rule": ".alert--danger",
+          "prop": "background-color",
+          "original": "var(--danger-050)",
+          "mutated": "#FFF8E1",
+          "expected_band": "major",
+          "expected_props": [
+            "background-color"
+          ],
+          "narrative": "Danger alert given a warning-amber background; the semantic role no longer matches the colour."
+        }
+      ],
+      "ground_truth": [
+        {
+          "component": "Button/Ghost",
+          "prop": "min-height",
+          "expected_band": "blocker",
+          "mutation_id": "M13",
+          "kind": "target_below_min"
+        },
+        {
+          "component": "Button/Ghost",
+          "prop": "-derived-target-height",
+          "expected_band": "blocker",
+          "mutation_id": "M13",
+          "kind": "target_below_min"
+        },
+        {
+          "component": "Button/Primary",
+          "prop": "font-weight",
+          "expected_band": "major",
+          "mutation_id": "M07",
+          "kind": "weight_flatten"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "background-color",
+          "expected_band": "major",
+          "mutation_id": "M18",
+          "kind": "color_semantic_swap"
+        }
+      ]
+    },
+    {
+      "case_id": "case_07",
+      "label": "4 defects: border_contrast, letter_spacing, space_offgrid, space_subpixel",
+      "css_path": "eval/cases/generated\\case_07.css",
+      "mutations": [
+        {
+          "mutation_id": "M02",
+          "kind": "space_offgrid",
+          "component": "Card/Summary",
+          "css_rule": ".summary",
+          "prop": "padding",
+          "original": "var(--space-6)",
+          "mutated": "22px",
+          "expected_band": "minor",
+          "expected_props": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left",
+            "-derived-grid-conformance"
+          ],
+          "narrative": "Token replaced by a literal during a merge conflict; 22px is off the 4px grid entirely."
+        },
+        {
+          "mutation_id": "M16",
+          "kind": "space_subpixel",
+          "component": "Alert/Danger",
+          "css_rule": ".alert--danger",
+          "prop": "padding",
+          "original": "16px",
+          "mutated": "15px",
+          "expected_band": "info",
+          "expected_props": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ],
+          "narrative": "A 1px trim that no one will see but which breaks grid rhythm across the page."
+        },
+        {
+          "mutation_id": "M17",
+          "kind": "letter_spacing",
+          "component": "Card/Title",
+          "css_rule": ".summary__title",
+          "prop": "letter-spacing",
+          "original": "-0.4px",
+          "mutated": "0px",
+          "expected_band": "info",
+          "expected_props": [
+            "letter-spacing"
+          ],
+          "narrative": "Optical tracking dropped when the heading style was copied from a generic template."
+        },
+        {
+          "mutation_id": "M15",
+          "kind": "border_contrast",
+          "component": "Input/Text",
+          "css_rule": ".field__input",
+          "prop": "border",
+          "original": "1px solid var(--ink-300)",
+          "mutated": "1px solid #E8EAEE",
+          "expected_band": "blocker",
+          "expected_props": [
+            "border-color"
+          ],
+          "narrative": "Field border lightened for a cleaner look. Boundary drops under the 3:1 non-text minimum."
+        }
+      ],
+      "ground_truth": [
+        {
+          "component": "Card/Summary",
+          "prop": "padding-top",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "padding-right",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "padding-bottom",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "padding-left",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Card/Summary",
+          "prop": "-derived-grid-conformance",
+          "expected_band": "minor",
+          "mutation_id": "M02",
+          "kind": "space_offgrid"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-top",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-right",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-bottom",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-left",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Card/Title",
+          "prop": "letter-spacing",
+          "expected_band": "info",
+          "mutation_id": "M17",
+          "kind": "letter_spacing"
+        },
+        {
+          "component": "Input/Text",
+          "prop": "border-color",
+          "expected_band": "blocker",
+          "mutation_id": "M15",
+          "kind": "border_contrast"
+        }
+      ]
+    },
+    {
+      "case_id": "case_08",
+      "label": "4 defects: color_drift, focus_removed, proximity_collapse, target_shrink",
+      "css_path": "eval/cases/generated\\case_08.css",
+      "mutations": [
+        {
+          "mutation_id": "M11",
+          "kind": "focus_removed",
+          "component": "Button/Primary",
+          "css_rule": ".btn--primary:focus-visible",
+          "prop": "__RULE__",
+          "original": "outline: 2px solid var(--brand-600);",
+          "mutated": "(rule deleted)",
+          "expected_band": "blocker",
+          "expected_props": [
+            "outline-width",
+            "outline-style"
+          ],
+          "narrative": "Focus ring deleted to silence a designer's 'ugly blue box' complaint."
+        },
+        {
+          "mutation_id": "M04",
+          "kind": "color_drift",
+          "component": "Badge/Success",
+          "css_rule": ".badge--success",
+          "prop": "color",
+          "original": "var(--success-600)",
+          "mutated": "#2E9E63",
+          "expected_band": "blocker",
+          "expected_props": [
+            "color"
+          ],
+          "narrative": "Success green lightened 'to look friendlier'. It also crosses the AA line, which is precisely what nobody notices by eye."
+        },
+        {
+          "mutation_id": "M14",
+          "kind": "proximity_collapse",
+          "component": "Input/Label",
+          "css_rule": ".field__label",
+          "prop": "margin-bottom",
+          "original": "var(--space-2)",
+          "mutated": "2px",
+          "expected_band": "major",
+          "expected_props": [
+            "margin-bottom"
+          ],
+          "narrative": "Label pulled tight against its field, collapsing the grouping the spec relies on."
+        },
+        {
+          "mutation_id": "M12",
+          "kind": "target_shrink",
+          "component": "Button/Ghost",
+          "css_rule": ".btn--ghost",
+          "prop": "min-height",
+          "original": "44px",
+          "mutated": "28px",
+          "expected_band": "major",
+          "expected_props": [
+            "min-height",
+            "-derived-target-height"
+          ],
+          "narrative": "Ghost button compacted for a dense toolbar. Still above the WCAG floor, but hard to hit."
+        }
+      ],
+      "ground_truth": [
+        {
+          "component": "Button/Primary",
+          "prop": "outline-width",
+          "expected_band": "blocker",
+          "mutation_id": "M11",
+          "kind": "focus_removed"
+        },
+        {
+          "component": "Button/Primary",
+          "prop": "outline-style",
+          "expected_band": "blocker",
+          "mutation_id": "M11",
+          "kind": "focus_removed"
+        },
+        {
+          "component": "Badge/Success",
+          "prop": "color",
+          "expected_band": "blocker",
+          "mutation_id": "M04",
+          "kind": "color_drift"
+        },
+        {
+          "component": "Input/Label",
+          "prop": "margin-bottom",
+          "expected_band": "major",
+          "mutation_id": "M14",
+          "kind": "proximity_collapse"
+        },
+        {
+          "component": "Button/Ghost",
+          "prop": "min-height",
+          "expected_band": "major",
+          "mutation_id": "M12",
+          "kind": "target_shrink"
+        },
+        {
+          "component": "Button/Ghost",
+          "prop": "-derived-target-height",
+          "expected_band": "major",
+          "mutation_id": "M12",
+          "kind": "target_shrink"
+        }
+      ]
+    },
+    {
+      "case_id": "case_09",
+      "label": "3 defects: proximity_inversion, space_nudge, weight_flatten",
+      "css_path": "eval/cases/generated\\case_09.css",
+      "mutations": [
+        {
+          "mutation_id": "M07",
+          "kind": "weight_flatten",
+          "component": "Button/Primary",
+          "css_rule": ".btn",
+          "prop": "font-weight",
+          "original": "600",
+          "mutated": "400",
+          "expected_band": "major",
+          "expected_props": [
+            "font-weight"
+          ],
+          "narrative": "Weight reset when the base .btn rule was rewritten; the variant never re-declared it."
+        },
+        {
+          "mutation_id": "M01",
+          "kind": "space_nudge",
+          "component": "Button/Primary",
+          "css_rule": ".btn--primary",
+          "prop": "padding",
+          "original": "12px 24px",
+          "mutated": "12px 20px",
+          "expected_band": "major",
+          "expected_props": [
+            "padding-right",
+            "padding-left"
+          ],
+          "narrative": "Someone eyeballed the button in a browser and shaved the sides to fit a longer label."
+        },
+        {
+          "mutation_id": "M19",
+          "kind": "proximity_inversion",
+          "component": "Input/Label",
+          "css_rule": ".field__label",
+          "prop": "margin-bottom",
+          "original": "var(--space-2)",
+          "mutated": "28px",
+          "expected_band": "major",
+          "expected_props": [
+            "margin-bottom",
+            "-derived-proximity-ratio"
+          ],
+          "narrative": "Label pushed away from its field to 'give it room'. The gap below the label now exceeds the 24px gap between fields, so the label reads as belonging to the field above it. Every individual value still looks reasonable in isolation."
+        }
+      ],
+      "ground_truth": [
+        {
+          "component": "Button/Primary",
+          "prop": "font-weight",
+          "expected_band": "major",
+          "mutation_id": "M07",
+          "kind": "weight_flatten"
+        },
+        {
+          "component": "Button/Primary",
+          "prop": "padding-right",
+          "expected_band": "major",
+          "mutation_id": "M01",
+          "kind": "space_nudge"
+        },
+        {
+          "component": "Button/Primary",
+          "prop": "padding-left",
+          "expected_band": "major",
+          "mutation_id": "M01",
+          "kind": "space_nudge"
+        },
+        {
+          "component": "Input/Label",
+          "prop": "margin-bottom",
+          "expected_band": "major",
+          "mutation_id": "M19",
+          "kind": "proximity_inversion"
+        },
+        {
+          "component": "Input/Label",
+          "prop": "-derived-proximity-ratio",
+          "expected_band": "major",
+          "mutation_id": "M19",
+          "kind": "proximity_inversion"
+        }
+      ]
+    },
+    {
+      "case_id": "case_10",
+      "label": "4 defects: color_semantic_swap, space_subpixel, type_size, weight_flatten",
+      "css_path": "eval/cases/generated\\case_10.css",
+      "mutations": [
+        {
+          "mutation_id": "M06",
+          "kind": "type_size",
+          "component": "Card/Title",
+          "css_rule": ".summary__title",
+          "prop": "font-size",
+          "original": "24px",
+          "mutated": "21px",
+          "expected_band": "major",
+          "expected_props": [
+            "font-size"
+          ],
+          "narrative": "Heading nudged down to stop a two-line wrap on a narrow viewport."
+        },
+        {
+          "mutation_id": "M18",
+          "kind": "color_semantic_swap",
+          "component": "Alert/Danger",
+          "css_rule": ".alert--danger",
+          "prop": "background-color",
+          "original": "var(--danger-050)",
+          "mutated": "#FFF8E1",
+          "expected_band": "major",
+          "expected_props": [
+            "background-color"
+          ],
+          "narrative": "Danger alert given a warning-amber background; the semantic role no longer matches the colour."
+        },
+        {
+          "mutation_id": "M16",
+          "kind": "space_subpixel",
+          "component": "Alert/Danger",
+          "css_rule": ".alert--danger",
+          "prop": "padding",
+          "original": "16px",
+          "mutated": "15px",
+          "expected_band": "info",
+          "expected_props": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ],
+          "narrative": "A 1px trim that no one will see but which breaks grid rhythm across the page."
+        },
+        {
+          "mutation_id": "M07",
+          "kind": "weight_flatten",
+          "component": "Button/Primary",
+          "css_rule": ".btn",
+          "prop": "font-weight",
+          "original": "600",
+          "mutated": "400",
+          "expected_band": "major",
+          "expected_props": [
+            "font-weight"
+          ],
+          "narrative": "Weight reset when the base .btn rule was rewritten; the variant never re-declared it."
+        }
+      ],
+      "ground_truth": [
+        {
+          "component": "Card/Title",
+          "prop": "font-size",
+          "expected_band": "major",
+          "mutation_id": "M06",
+          "kind": "type_size"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "background-color",
+          "expected_band": "major",
+          "mutation_id": "M18",
+          "kind": "color_semantic_swap"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-top",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-right",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-bottom",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-left",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Button/Primary",
+          "prop": "font-weight",
+          "expected_band": "major",
+          "mutation_id": "M07",
+          "kind": "weight_flatten"
+        }
+      ]
+    },
+    {
+      "case_id": "case_11",
+      "label": "3 defects: proximity_inversion, radius_drift, space_subpixel",
+      "css_path": "eval/cases/generated\\case_11.css",
+      "mutations": [
+        {
+          "mutation_id": "M10",
+          "kind": "radius_drift",
+          "component": "Input/Text",
+          "css_rule": ".field__input",
+          "prop": "border-radius",
+          "original": "var(--radius-md)",
+          "mutated": "4px",
+          "expected_band": "minor",
+          "expected_props": [
+            "border-radius"
+          ],
+          "narrative": "Wrong radius token picked from autocomplete; sm instead of md."
+        },
+        {
+          "mutation_id": "M16",
+          "kind": "space_subpixel",
+          "component": "Alert/Danger",
+          "css_rule": ".alert--danger",
+          "prop": "padding",
+          "original": "16px",
+          "mutated": "15px",
+          "expected_band": "info",
+          "expected_props": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ],
+          "narrative": "A 1px trim that no one will see but which breaks grid rhythm across the page."
+        },
+        {
+          "mutation_id": "M19",
+          "kind": "proximity_inversion",
+          "component": "Input/Label",
+          "css_rule": ".field__label",
+          "prop": "margin-bottom",
+          "original": "var(--space-2)",
+          "mutated": "28px",
+          "expected_band": "major",
+          "expected_props": [
+            "margin-bottom",
+            "-derived-proximity-ratio"
+          ],
+          "narrative": "Label pushed away from its field to 'give it room'. The gap below the label now exceeds the 24px gap between fields, so the label reads as belonging to the field above it. Every individual value still looks reasonable in isolation."
+        }
+      ],
+      "ground_truth": [
+        {
+          "component": "Input/Text",
+          "prop": "border-radius",
+          "expected_band": "minor",
+          "mutation_id": "M10",
+          "kind": "radius_drift"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-top",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-right",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-bottom",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Alert/Danger",
+          "prop": "padding-left",
+          "expected_band": "info",
+          "mutation_id": "M16",
+          "kind": "space_subpixel"
+        },
+        {
+          "component": "Input/Label",
+          "prop": "margin-bottom",
+          "expected_band": "major",
+          "mutation_id": "M19",
+          "kind": "proximity_inversion"
+        },
+        {
+          "component": "Input/Label",
+          "prop": "-derived-proximity-ratio",
+          "expected_band": "major",
+          "mutation_id": "M19",
+          "kind": "proximity_inversion"
+        }
+      ]
+    }
+  ]
+}
