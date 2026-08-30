@@ -88,8 +88,8 @@ body::before{content:"";position:fixed;inset:0;z-index:-2;
   background-attachment:fixed}
 
 /* Cursor layer. Pointer-events off so it never eats a click on the report. */
-#bubbles{position:fixed;inset:0;z-index:-1;pointer-events:none;
-  mix-blend-mode:normal}
+#liquid{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  filter:url(#goo) saturate(1.35);opacity:.8}
 a{color:var(--accent);text-decoration:none}
 code,.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
 
@@ -169,13 +169,43 @@ code,.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
   pointer-events:none;
   background:linear-gradient(180deg,rgba(255,255,255,.65),rgba(255,255,255,0) 38%);
   opacity:.55}
-.sec{margin:34px 0 0;scroll-margin-top:24px}
-.sec>h2{font-size:17px;letter-spacing:-.01em;margin:0 0 4px;font-weight:700}
-.sec>.sub{color:var(--muted);font-size:13.5px;margin:0 0 14px}
+.sec{display:none;margin:8px 0 0}
+.sec.view{display:block;animation:secIn .28s ease}
+@keyframes secIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.sechead{padding:15px 20px;margin:0 0 14px}
+.sechead h2{font-size:17px;letter-spacing:-.01em;margin:0 0 4px;font-weight:700}
+.sechead .sub{color:var(--ink-2);font-size:13.5px;margin:0}
+
+/* ---------- owner hero ---------- */
+.owner{position:relative;z-index:20;display:flex;align-items:center;
+  min-height:308px;padding:30px 500px 30px 30px;margin:0 0 16px;overflow:visible}
+.owner__role{font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--accent);font-weight:750}
+.owner__name{margin:7px 0 2px;font-size:31px;font-weight:800;letter-spacing:-.02em;
+  background:linear-gradient(94deg,#6D28D9 10%,#DB2777 90%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.owner__event{margin:9px 0 13px;font-size:16.5px;font-weight:750;color:var(--ink)}
+.owner__chips{display:flex;gap:9px;flex-wrap:wrap}
+.chip-glass{display:inline-flex;align-items:center;padding:6px 15px;border-radius:999px;
+  font-size:12.5px;font-weight:700;color:var(--accent);
+  background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.75);
+  -webkit-backdrop-filter:blur(12px) saturate(160%);
+  backdrop-filter:blur(12px) saturate(160%);
+  box-shadow:0 4px 14px -8px rgba(109,40,217,.45),inset 0 1px 1px rgba(255,255,255,.9)}
+.owner__art{position:absolute;right:6px;bottom:-4px;height:calc(100% + 100px);
+  z-index:30;display:flex;align-items:flex-end;justify-content:flex-end;
+  transition:transform .3s cubic-bezier(.2,.8,.3,1);will-change:transform;
+  pointer-events:none}
+.owner__art img{height:100%;width:auto;display:block;
+  animation:heroFloat 6s ease-in-out infinite;
+  filter:saturate(1.04) drop-shadow(0 22px 36px rgba(109,40,217,.30))}
+@keyframes heroFloat{0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-9px)}}
+@media (prefers-reduced-motion: reduce){.owner__art img{animation:none}}
 .grid2{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px;align-items:start}
 
 /* hero */
-.hero{display:flex;gap:16px;
+.hero{display:flex;gap:16px;margin:0 0 16px;
   background:linear-gradient(135deg,rgba(255,255,255,.80),rgba(253,242,250,.68));
   -webkit-backdrop-filter:blur(20px) saturate(165%);
   backdrop-filter:blur(20px) saturate(165%);
@@ -389,7 +419,9 @@ pre.cmd .c{color:#8B93AC}
 footer{margin-top:44px;color:var(--muted);font-size:12px;display:flex;
   flex-wrap:wrap;gap:10px;justify-content:space-between}
 
-@media (max-width:1060px){.grid2{grid-template-columns:1fr}.rail{order:-1}}
+@media (max-width:1060px){.grid2{grid-template-columns:1fr}.rail{order:-1}
+  .owner{padding:24px 26px;min-height:0}
+  .owner__art{position:static;height:230px;margin:0 auto 8px;justify-content:center}}
 @media (max-width:840px){
   .shell{grid-template-columns:1fr}
   .side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center}
@@ -399,7 +431,8 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;display:flex;
   .side__foot{display:none}
 }
 @media print{
-  .side,.filters,.actions{display:none}
+  .side,.filters,.actions,#bubbles,.owner__art{display:none}
+  .sec{display:block!important;margin:0 0 26px}
   .shell{grid-template-columns:1fr}
   body{background:#fff}
   .card{box-shadow:none}
@@ -407,14 +440,15 @@ footer{margin-top:44px;color:var(--muted);font-size:12px;display:flex;
 """
 
 JS = """
-/* ---- glass bubbles trailing the cursor --------------------------------
-   Written from scratch on a 2D canvas rather than pulled from a WebGL
-   component library: this report has to stay a single file that opens from
-   file:// with no network, so a CDN dependency is not available to us.
-   The look comes from compositing -- a bright rim, a soft body, and a
-   specular dot offset toward the light -- which is what reads as glass. */
+/* ---- liquid trail following the cursor -------------------------------
+   Original implementation, 2D canvas + an SVG gooey filter. No rims, no
+   speculars, no discrete droplets: a chain of soft blobs eases after the
+   pointer, and the goo filter (blur, then a hard alpha ramp) fuses them
+   into one continuous streak that stretches on fast moves and pools when
+   the pointer rests -- which is what liquid does. Kept dependency-free so
+   the report still opens from file:// with no network.  */
 (function(){
-  var canvas = document.getElementById('bubbles');
+  var canvas = document.getElementById('liquid');
   if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     if (canvas) canvas.style.display = 'none';
     return;
@@ -426,141 +460,109 @@ JS = """
   var W = 0, H = 0;
   function resize(){
     W = window.innerWidth; H = window.innerHeight;
-    canvas.width = Math.round(W * dpr);
-    canvas.height = Math.round(H * dpr);
-    canvas.style.width = W + 'px';
-    canvas.style.height = H + 'px';
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
   resize();
   window.addEventListener('resize', resize);
 
-  var pointer = {x: -999, y: -999, has: false};
-  var drops = [];
-  var MAX = 42;
-  var last = 0;
-
+  var pointer = {x: W / 2, y: H / 2, has: false};
   window.addEventListener('pointermove', function(e){
     pointer.x = e.clientX; pointer.y = e.clientY; pointer.has = true;
-    var now = performance.now();
-    // Spawn on distance, not on every event: a fast flick and a slow drag
-    // should leave a trail of the same density.
-    if (now - last > 18) {
-      last = now;
-      drops.push({
-        x: e.clientX + (Math.random() - .5) * 14,
-        y: e.clientY + (Math.random() - .5) * 14,
-        r: 9 + Math.random() * 20,
-        vx: (Math.random() - .5) * .6,
-        vy: -.22 - Math.random() * .45,
-        life: 1,
-        decay: .0042 + Math.random() * .006,
-        hue: Math.random() < .5 ? 268 : 322
-      });
-      if (drops.length > MAX) drops.splice(0, drops.length - MAX);
-    }
   }, {passive: true});
   window.addEventListener('pointerleave', function(){ pointer.has = false; });
 
-  function bubble(x, y, r, alpha, hue){
-    // body
-    // Body: bright at the lit shoulder, thinning to nothing at the edge, so the
-    // centre stays clear like a real droplet rather than a filled disc.
-    var g = ctx.createRadialGradient(x - r * .32, y - r * .38, r * .04, x, y, r);
-    g.addColorStop(0,   'hsla(' + hue + ',100%,99%,' + (0.92 * alpha) + ')');
-    g.addColorStop(.35, 'hsla(' + hue + ', 92%,90%,' + (0.42 * alpha) + ')');
-    g.addColorStop(.78, 'hsla(' + hue + ', 88%,80%,' + (0.20 * alpha) + ')');
-    g.addColorStop(1,   'hsla(' + hue + ', 85%,74%,0)');
+  // The chain: the head chases the pointer, every link chases the one before
+  // it. Stiffer at the head, looser at the tail, so a flick stretches the
+  // streak and a pause lets it pool back into a drop.
+  var N = 16, chain = [];
+  for (var i = 0; i < N; i++) chain.push({x: W / 2, y: H / 2});
+  var presence = 0;   // fades the whole streak in and out smoothly
+
+  function blob(x, y, r, hue, a){
+    var g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0,  'hsla(' + hue + ',95%,72%,' + a + ')');
+    g.addColorStop(.7, 'hsla(' + hue + ',90%,70%,' + (a * .85) + ')');
+    g.addColorStop(1,  'hsla(' + hue + ',88%,68%,0)');
     ctx.fillStyle = g;
     ctx.beginPath(); ctx.arc(x, y, r, 0, 6.283); ctx.fill();
-
-    // Rim: the single strongest cue that this is glass and not a blur.
-    ctx.strokeStyle = 'hsla(' + hue + ',100%,99%,' + (0.92 * alpha) + ')';
-    ctx.lineWidth = Math.max(r * .10, 1.1);
-    ctx.beginPath(); ctx.arc(x, y, r * .92, 0, 6.283); ctx.stroke();
-
-    // A second, tinted rim just inside reads as thickness.
-    ctx.strokeStyle = 'hsla(' + hue + ',95%,72%,' + (0.34 * alpha) + ')';
-    ctx.lineWidth = Math.max(r * .05, .6);
-    ctx.beginPath(); ctx.arc(x, y, r * .80, 0, 6.283); ctx.stroke();
-
-    // Specular highlight, plus a small bounce light opposite it.
-    ctx.fillStyle = 'rgba(255,255,255,' + (0.95 * alpha) + ')';
-    ctx.beginPath();
-    ctx.ellipse(x - r * .33, y - r * .38, r * .23, r * .15, -0.6, 0, 6.283);
-    ctx.fill();
-    ctx.fillStyle = 'hsla(' + hue + ',100%,92%,' + (0.45 * alpha) + ')';
-    ctx.beginPath();
-    ctx.ellipse(x + r * .30, y + r * .34, r * .13, r * .09, -0.6, 0, 6.283);
-    ctx.fill();
   }
 
-  var cursor = {x: -999, y: -999, r: 0};
   function frame(){
     ctx.clearRect(0, 0, W, H);
+    presence += ((pointer.has ? 1 : 0) - presence) * 0.06;
 
-    for (var i = drops.length - 1; i >= 0; i--) {
-      var d = drops[i];
-      d.x += d.vx; d.y += d.vy; d.vy -= 0.004;
-      d.life -= d.decay;
-      if (d.life <= 0) { drops.splice(i, 1); continue; }
-      bubble(d.x, d.y, d.r * (0.55 + d.life * 0.45), d.life * 0.9, d.hue);
+    chain[0].x += (pointer.x - chain[0].x) * 0.30;
+    chain[0].y += (pointer.y - chain[0].y) * 0.30;
+    for (var i = 1; i < N; i++) {
+      var k = 0.42 - i * 0.012;
+      chain[i].x += (chain[i-1].x - chain[i].x) * k;
+      chain[i].y += (chain[i-1].y - chain[i].y) * k;
     }
 
-    // The lead droplet eases toward the pointer so it lags slightly -- that lag
-    // is what makes it feel like an object with mass rather than a cursor sprite.
-    if (pointer.has) {
-      if (cursor.x < -100) { cursor.x = pointer.x; cursor.y = pointer.y; }
-      cursor.x += (pointer.x - cursor.x) * 0.18;
-      cursor.y += (pointer.y - cursor.y) * 0.18;
-      cursor.r += (38 - cursor.r) * 0.12;
-      bubble(cursor.x, cursor.y, cursor.r, 1, 288);
-    } else {
-      cursor.r += (0 - cursor.r) * 0.12;
-      if (cursor.r > 0.6) bubble(cursor.x, cursor.y, cursor.r, cursor.r / 38, 288);
+    if (presence > 0.02) {
+      for (var i = N - 1; i >= 0; i--) {
+        var t = i / (N - 1);
+        var r = (30 - t * 21) * presence;         // 30px head -> 9px tail
+        var hue = 268 + t * 56;                    // violet head -> pink tail
+        blob(chain[i].x, chain[i].y, r, hue, 0.5 * presence * (1 - t * 0.45));
+      }
     }
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
 
-  // The logo lens tilts toward the pointer.
+  // The logo lens still tilts toward the pointer.
   var lens = document.getElementById('lens');
+  var art = document.getElementById('heroArt');
   if (lens) {
     window.addEventListener('pointermove', function(e){
       var b = lens.getBoundingClientRect();
       var dx = (e.clientX - (b.left + b.width / 2)) / window.innerWidth;
       var dy = (e.clientY - (b.top + b.height / 2)) / window.innerHeight;
-      var rx = Math.max(-14, Math.min(14, -dy * 26));
-      var ry = Math.max(-14, Math.min(14,  dx * 26));
-      lens.style.transform =
-        'perspective(420px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+      lens.style.transform = 'perspective(420px) rotateX(' +
+        Math.max(-14, Math.min(14, -dy * 26)) + 'deg) rotateY(' +
+        Math.max(-14, Math.min(14,  dx * 26)) + 'deg)';
       lens.style.setProperty('--gx', (dx * 9).toFixed(2) + 'px');
       lens.style.setProperty('--gy', (dy * 9).toFixed(2) + 'px');
+      if (art) {
+        // Page-centred coordinates: the lens uses its own centre, but the
+        // floating art should answer to where the pointer is on screen.
+        var ax = e.clientX / window.innerWidth - 0.5;
+        var ay = e.clientY / window.innerHeight - 0.5;
+        art.style.transform =
+          'translate3d(' + (ax * 10).toFixed(1) + 'px,' +
+          (ay * 7).toFixed(1) + 'px,0)';
+      }
     }, {passive: true});
   }
 })();
 
 (function(){
   var links = document.querySelectorAll('.nav a[href^="#"]');
-  var secs = [];
-  links.forEach(function(a){
-    var el = document.querySelector(a.getAttribute('href'));
-    if (el) secs.push([el, a]);
-  });
-  function activate(hash){
-    links.forEach(function(a){
-      a.classList.toggle('active', a.getAttribute('href') === hash);
+  /* Each section is its own page. Clicking the sidebar shows that section
+     alone and returns to the top -- no scrolling across one long document. */
+  function show(id){
+    document.querySelectorAll('.sec').forEach(function(sec){
+      sec.classList.toggle('view', sec.id === id);
     });
+    links.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+    window.scrollTo(0, 0);
   }
-  if ('IntersectionObserver' in window){
-    var obs = new IntersectionObserver(function(es){
-      es.forEach(function(e){
-        if (e.isIntersecting) activate('#' + e.target.id);
-      });
-    }, {rootMargin:'-18% 0px -70% 0px'});
-    secs.forEach(function(p){ obs.observe(p[0]); });
-  }
-  activate('#dashboard');
+  links.forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var id = a.getAttribute('href').slice(1);
+      show(id);
+      if (history.replaceState) history.replaceState(null, '', '#' + id);
+    });
+  });
+  var initial = (location.hash || '#dashboard').slice(1);
+  if (!document.getElementById(initial)) initial = 'dashboard';
+  show(initial);
 
   var btns = document.querySelectorAll('.fbtn');
   btns.forEach(function(b){
@@ -985,7 +987,11 @@ def write_html_report(report, path: str, design_path: str = "", code_path: str =
 <style>{CSS}</style>
 </head>
 <body>
-<canvas id="bubbles" aria-hidden="true"></canvas>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="11" result="b"/>
+  <feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -11"/></filter>
+</svg>
+<canvas id="liquid" aria-hidden="true"></canvas>
 <div class="shell">
 
 <nav class="side">
@@ -1011,13 +1017,26 @@ def write_html_report(report, path: str, design_path: str = "", code_path: str =
 <main class="main">
 
 <header class="phead">
-  <h1>Design Conformance Report</h1>
-  <span class="pill pill--ok">Completed</span>
+  <h1>Report</h1>
   <div class="meta"><span>{generated}</span><span>engine: {_esc(provider)}</span>
   <span>{s.get('wall_seconds', 0)}s analysis</span></div>
 </header>
 
 <section class="sec" id="dashboard">
+<div class="card owner">
+  <div class="owner__txt">
+    <div class="owner__role">UX/UI Designer · AI Trainer · Frontend Developer</div>
+    <h2 class="owner__name">Isabella Castro Camacho</h2>
+    <div class="owner__event">Frontier Engineering Challenge 2026</div>
+    <div class="owner__chips">
+      <span class="chip-glass">Hackathon</span>
+      <span class="chip-glass">micro1</span>
+    </div>
+  </div>
+  <div class="owner__art" id="heroArt">
+    <img src="hero.png" alt="" onerror="this.parentNode.style.display='none'">
+  </div>
+</div>
 <div class="grid2">
 <div>
   <div class="hero">
@@ -1037,47 +1056,52 @@ def write_html_report(report, path: str, design_path: str = "", code_path: str =
 </section>
 
 <section class="sec" id="root-causes">
-  <h2>Root causes</h2>
-  <p class="sub">Findings grouped by shared cause. Most drift is one wrong value
+  <div class="card sechead">
+    <h2>Root causes</h2>
+    <p class="sub">Findings grouped by shared cause. Most drift is one wrong value
   repeated, so a single token-layer change usually clears a whole group.</p>
+  </div>
   {causes}
 </section>
 
 <section class="sec" id="findings">
-  <h2>Findings</h2>
-  <p class="sub">Every card cites the measurement ids it rests on; each was
+  <div class="card sechead">
+    <h2>Findings</h2>
+    <p class="sub">Every card cites the measurement ids it rests on; each was
   recomputed by the verifier before it reached this page.</p>
+  </div>
   <div class="filters">{filters}</div>
   {fcards}
 </section>
 
 <section class="sec" id="verified">
-  <h2>How this was verified</h2>
-  <p class="sub">The verifier is deterministic — it recomputes every asserted
+  <div class="card sechead">
+    <h2>How this was verified</h2>
+    <p class="sub">The verifier is deterministic — it recomputes every asserted
   value and severity from the raw measurements and the published policy. A
   finding survives on evidence, never on the model's say-so.</p>
+  </div>
   <div class="card vtable"><table>{vrows}</table></div>
 </section>
 
 <section class="sec" id="step-by-step">
-  <h2>Step by step</h2>
-  <p class="sub">The exact commands that produced this report, in order — and
+  <div class="card sechead">
+    <h2>Step by step</h2>
+    <p class="sub">The exact commands that produced this report, in order — and
   what to type instead when a command fails. Windows PowerShell first; macOS
   and Linux variants where they differ.</p>
+  </div>
   {_step_by_step()}
 </section>
 
 <section class="sec" id="packages">
-  <h2>Packages</h2>
-  <p class="sub">Everything the tool can use, what each piece is for, and how to
+  <div class="card sechead">
+    <h2>Packages</h2>
+    <p class="sub">Everything the tool can use, what each piece is for, and how to
   install and verify it. Only Python itself is required.</p>
+  </div>
   {_packages(provider)}
 </section>
-
-<footer>
-  <span>Brush · design-system conformance · run {_esc(report.run_id)}</span>
-  <span>Place a <code>logo.png</code> next to this file to replace the badge in the sidebar.</span>
-</footer>
 
 </main>
 </div>
